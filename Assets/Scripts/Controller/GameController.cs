@@ -1,19 +1,46 @@
+using System;
+using System.Collections.Generic;
+using Data;
+using Save;
 using UnityEngine;
+using Utilities;
 
 namespace Controller
 {
     public class GameController : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private const int VERSION = 1;
+
+        [SerializeField] private int defaultWidth = 10;
+        [SerializeField] private int defaultDepth = 10;
+        [SerializeField] private GridController gridController;
         
+        private PlayerData playerData;
+        
+        private void Start()
+        {
+            if (SaveSystem.HasSaveData())
+            {
+                playerData = SaveSystem.Load();
+            }
+            else
+            {
+                playerData = new(0, String.Empty, new Dictionary<string, GridData>());
+                RegisterNewGrid();
+            }
+
+            var gridToLoad = playerData.grids[playerData.currentGridId];
+            gridController.Generate(gridToLoad);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void RegisterNewGrid()
         {
-        
+            var grid = new GridData(VERSION, defaultWidth, defaultDepth, Array.Empty<PlantData>());
+
+            var id = ShortUid.New();
+
+            playerData.currentGridId = id;
+            playerData.grids[id] = grid;
         }
     }
 }

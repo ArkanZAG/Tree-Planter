@@ -1,6 +1,6 @@
 using Cinemachine;
-using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Controller
@@ -15,9 +15,9 @@ namespace Controller
         [SerializeField] private float zoomSpeed = 0.1f;
         [SerializeField] private float cameraSpeed = 3f;
         [SerializeField] private GameObject cameraAnchor, anchorOffset;
-        [SerializeField] private GridController tileController;
-        [SerializeField] private Slider zoomSlider;
-        [SerializeField] private Toggle topDownToggle;
+        [SerializeField] private GridController gridController;
+        //[SerializeField] private Slider zoomSlider;
+        //[SerializeField] private Toggle topDownToggle;
         
         private float currentZoomAlpha = 0.5f;
         private float smoothAlpha;
@@ -31,18 +31,18 @@ namespace Controller
         {
                 mainTransposer = mainCamera.GetCinemachineComponent<CinemachineTransposer>();
                 topDownTransposer = topDownCamera.GetCinemachineComponent<CinemachineTransposer>();
-                zoomSlider.onValueChanged.AddListener(f => currentZoomAlpha = Mathf.Clamp01(f));
+                //zoomSlider.onValueChanged.AddListener(f => currentZoomAlpha = Mathf.Clamp01(f));
         }
         
         public void AddZoom(float f)
         {
                 currentZoomAlpha = Mathf.Clamp01(currentZoomAlpha + (f * zoomSpeed));
-                zoomSlider.SetValueWithoutNotify(currentZoomAlpha);
+                //zoomSlider.SetValueWithoutNotify(currentZoomAlpha);
         }
         
         public void Update()
         {
-                topDownCamera.Priority = topDownToggle.isOn ? 99 : 0;
+                //topDownCamera.Priority = topDownToggle.isOn ? 99 : 0;
                 
                 ProcessAnchorOffset();
                 ProcessZoom();
@@ -73,7 +73,7 @@ namespace Controller
                 pos.x -= delta.x * mod;
                 pos.z -= delta.y * mod;
         
-                var size = tileController.startPos * 1.5f;
+                var size = gridController.startPos * 1.5f;
                 pos.x = Mathf.Clamp(pos.x, size.x, -size.x);
                 pos.z = Mathf.Clamp(pos.z, size.z, -size.z);
         
