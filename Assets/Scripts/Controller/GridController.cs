@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Data;
 using GridSystem;
 using Plants;
@@ -47,7 +49,6 @@ namespace Controller
             SpawnPlants(data.plants);
         }
         
-        //SPAWN PLANTS ACCORDING TO DATA, GET FROM PLANT DATABASE
         private void SpawnPlants(PlantData[] dataPlants)
         {
             for (int i = 0; i < dataPlants.Length; i++)
@@ -57,9 +58,34 @@ namespace Controller
                 var prefab = plantDataBase.GetPrefab(data.id);
                 var obj = Instantiate(prefab, tile.transform);
                 var iPlant = obj.GetComponent<IPlant>();
-                iPlant.Initialize(data, tile, gameController, this);
+                var neighbours = GetNeighbours(data.x, data.y);
+                
+                iPlant.Initialize(data, tile, neighbours.ToArray(), gameController, this);
                 tile.SetPlant(iPlant);
             }
+        }
+
+        private IEnumerable<Tile> GetNeighbours(int x, int y)
+        {
+            var tiles = new List<Tile>();
+    
+            // Check left
+            if (x > 0) 
+                tiles.Add(spawnedTile[x - 1][y]);
+    
+            // Check right
+            if (x < spawnedTile.Length - 1) 
+                tiles.Add(spawnedTile[x + 1][y]);
+    
+            // Check top
+            if (y > 0) 
+                tiles.Add(spawnedTile[x][y - 1]);
+    
+            // Check bottom
+            if (y < spawnedTile[x].Length - 1) 
+                tiles.Add(spawnedTile[x][y + 1]);
+
+            return tiles;
         }
 
         public void SelectTile(Tile tile)

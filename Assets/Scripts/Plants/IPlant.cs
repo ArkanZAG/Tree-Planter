@@ -9,7 +9,7 @@ namespace Plants
         public Tile Tile { get; }
         public string Id { get; }
         
-        public void Initialize(PlantData data, Tile tile, GameController gameController, GridController gridController);
+        public void Initialize(PlantData data, Tile tile, Tile[] neighbours, GameController gameController, GridController gridController);
         public void OnClick();
     }
 }

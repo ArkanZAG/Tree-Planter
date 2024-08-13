@@ -27,7 +27,7 @@ namespace Plants
             
         private Tile currentTile;
         
-        public void Initialize(PlantData data, Tile tile, GameController gameController, GridController gridController)
+        public void Initialize(PlantData data, Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
         {
             currentTile = tile;
         }
