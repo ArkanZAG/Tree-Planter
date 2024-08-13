@@ -9,5 +9,12 @@ namespace Data
         public int y;
         public string id;
         public Dictionary<string, int> data;
+
+        public PlantData(int x, int y, string id)
+        {
+            this.x = x;
+            this.y = y;
+            this.id = id;
+        }
     }
 }

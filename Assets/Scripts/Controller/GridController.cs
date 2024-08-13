@@ -1,5 +1,7 @@
 using Data;
 using GridSystem;
+using Plants;
+using Unity.VisualScripting;
 using UnityEngine;
 using Utilities;
 
@@ -9,6 +11,8 @@ namespace Controller
     {
         [SerializeField] private Tile tilePrefab;
         [SerializeField] private MeshGrid grid;
+        [SerializeField] private PlantDatabase plantDataBase;
+        [SerializeField] private GameController gameController;
     
         private Tile[][] spawnedTile;
         private Tile currentTile = null;
@@ -46,7 +50,16 @@ namespace Controller
         //SPAWN PLANTS ACCORDING TO DATA, GET FROM PLANT DATABASE
         private void SpawnPlants(PlantData[] dataPlants)
         {
-            
+            for (int i = 0; i < dataPlants.Length; i++)
+            {
+                var data = dataPlants[i];
+                var tile = spawnedTile[data.x][data.y];
+                var prefab = plantDataBase.GetPrefab(data.id);
+                var obj = Instantiate(prefab, tile.transform);
+                var iPlant = obj.GetComponent<IPlant>();
+                iPlant.Initialize(data, tile, gameController, this);
+                tile.SetPlant(iPlant);
+            }
         }
 
         public void SelectTile(Tile tile)

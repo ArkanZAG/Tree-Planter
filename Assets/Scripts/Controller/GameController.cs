@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data;
+using Plants;
 using Save;
 using UnityEngine;
 using Utilities;
@@ -14,11 +15,14 @@ namespace Controller
         [SerializeField] private int defaultWidth = 10;
         [SerializeField] private int defaultDepth = 10;
         [SerializeField] private GridController gridController;
+        [SerializeField] private PlantDatabase plantDataBase;
         
         private PlayerData playerData;
-        
+
         private void Start()
         {
+            plantDataBase.Initialize();
+            
             if (SaveSystem.HasSaveData())
             {
                 playerData = SaveSystem.Load();
