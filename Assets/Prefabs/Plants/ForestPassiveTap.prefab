@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4771834433649565409}
   - component: {fileID: 7408823752124187365}
+  - component: {fileID: 8794278570591049222}
   m_Layer: 0
   m_Name: ForestPassiveTap
   m_TagString: Untagged
@@ -52,6 +53,20 @@ MonoBehaviour:
   baseTapOxygen: 10
   basePrice: 100
   speedPerGenerationLevel: 0.1
+--- !u!114 &8794278570591049222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987149127591831117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316fcbceaa3848fcb8210da8d29162f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionOffset: {x: 0, y: 3, z: -12}
+  rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &7677812797355329410
 GameObject:
   m_ObjectHideFlags: 0

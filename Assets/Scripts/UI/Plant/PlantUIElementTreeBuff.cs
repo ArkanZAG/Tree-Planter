@@ -1,3 +1,4 @@
+using ObjectRendering;
 using Plants;
 using TMPro;
 using UnityEngine;
@@ -11,9 +12,12 @@ namespace UI.Plant
     {
         [SerializeField] private TextMeshProUGUI buffText;
         [SerializeField] private TextMeshProUGUI priceText;
+        [SerializeField] private RenderImage renderImage;
         
         public void Display(TreeBuff treeBuff)
         {
+            Render(treeBuff.gameObject);
+            
             if (treeBuff.BaseOxygenBuff != 0)
             {
                 var oxygen = treeBuff.BaseOxygenBuff;
@@ -28,6 +32,11 @@ namespace UI.Plant
             
         }
         
-        
+        private void Render(GameObject obj)
+        {
+            renderImage.Render(obj);
+            var spin = renderImage.RenderObject.AddComponent<SpinForever>();
+            spin.SetSpeed(10f);
+        }
     }
 }

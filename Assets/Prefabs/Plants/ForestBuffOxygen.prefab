@@ -115,6 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4771834433649565409}
   - component: {fileID: 6704880894159249632}
+  - component: {fileID: 4550313496061409226}
   m_Layer: 0
   m_Name: ForestBuffOxygen
   m_TagString: Untagged
@@ -155,3 +156,17 @@ MonoBehaviour:
   baseOxygenBuff: 1
   baseSpeedBuff: 0
   basePrice: 100
+--- !u!114 &4550313496061409226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987149127591831117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316fcbceaa3848fcb8210da8d29162f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionOffset: {x: 0, y: 3, z: -12}
+  rotationOffset: {x: 0, y: 0, z: 0}

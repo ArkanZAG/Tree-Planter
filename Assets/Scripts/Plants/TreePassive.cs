@@ -25,6 +25,8 @@ namespace Plants
         private int tapLevel = 0;
 
         private float currentTimer;
+
+        private bool initialized = false;
             
         private Tile currentTile;
 
@@ -39,15 +41,20 @@ namespace Plants
         {
             currentTile = tile;
             currentGameController = gameController;
+            initialized = true;
         }
 
         public void OnClick()
         {
+            if (!initialized) return;
+            
             currentGameController.AddOxygen(baseOxygen);
         }
 
         private void Update()
         {
+            if (!initialized) return;
+
             currentTimer += Time.deltaTime;
             var gps = baseSpeed + (generationLevel * 0.1f);
             var targetTime = 1 / gps;
@@ -61,7 +68,9 @@ namespace Plants
 
         private void GeneratePassive()
         {
-             currentGameController.AddOxygen(baseOxygen);
+            if (!initialized) return;
+            
+            currentGameController.AddOxygen(baseOxygen);
         }
     }
 }
