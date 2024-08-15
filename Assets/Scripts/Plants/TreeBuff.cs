@@ -11,7 +11,16 @@ namespace Plants
         public string Id => prefabId;
         [SerializeField] private string prefabId;
         [SerializeField] private BiomeType biomeType;
+        [Header("Stats")] 
+        [SerializeField] private float baseOxygenBuff;
+        [SerializeField] private float baseSpeedBuff;
+        [SerializeField] private float basePrice;
+        
         private Tile currentTile;
+
+        public float BaseOxygenBuff => baseOxygenBuff;
+        public float BaseSpeedBuff => baseSpeedBuff;
+        public float BasePrice => basePrice;
         
         public void Initialize(PlantData data, Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
         {

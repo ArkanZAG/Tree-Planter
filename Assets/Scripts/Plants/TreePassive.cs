@@ -16,6 +16,7 @@ namespace Plants
         [SerializeField] [Tooltip("Base Oxygen Per Generation")]private float baseOxygen;
         [SerializeField] [Tooltip("Base Speed Oxygen Generation Per Second")] private float baseSpeed;
         [SerializeField] [Tooltip("Base Oxygen Per Tap")]private float baseTapOxygen;
+        [SerializeField] private float basePrice;
         [Header("Modifier")]
         [SerializeField] private float speedPerGenerationLevel = 0.1f;
 
@@ -26,6 +27,11 @@ namespace Plants
         private float currentTimer;
             
         private Tile currentTile;
+
+        public float BaseOxygen => baseOxygen;
+        public float BaseSpeed => baseSpeed;
+        public float BaseTapOxygen => baseTapOxygen;
+        public float BasePrice => basePrice;
         
         public void Initialize(PlantData data, Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
         {
