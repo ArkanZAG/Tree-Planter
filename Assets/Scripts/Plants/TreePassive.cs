@@ -13,9 +13,9 @@ namespace Plants
         [SerializeField] private string prefabId;
         [SerializeField] private BiomeType biomeType;
         [Header("Stats")]
-        [SerializeField] [Tooltip("Base Oxygen Per Generation")]private float baseOxygen;
+        [SerializeField] [Tooltip("Base Oxygen Per Generation")]private int baseOxygen;
         [SerializeField] [Tooltip("Base Speed Oxygen Generation Per Second")] private float baseSpeed;
-        [SerializeField] [Tooltip("Base Oxygen Per Tap")]private float baseTapOxygen;
+        [SerializeField] [Tooltip("Base Oxygen Per Tap")]private int baseTapOxygen;
         [SerializeField] private float basePrice;
         [Header("Modifier")]
         [SerializeField] private float speedPerGenerationLevel = 0.1f;
@@ -32,12 +32,12 @@ namespace Plants
 
         private GameController currentGameController;
 
-        public float BaseOxygen => baseOxygen;
+        public int BaseOxygen => baseOxygen;
         public float BaseSpeed => baseSpeed;
-        public float BaseTapOxygen => baseTapOxygen;
+        public int BaseTapOxygen => baseTapOxygen;
         public float BasePrice => basePrice;
         
-        public void Initialize(PlantData data, Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
+        public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
         {
             currentTile = tile;
             currentGameController = gameController;

@@ -22,7 +22,7 @@ namespace Plants
         public float BaseSpeedBuff => baseSpeedBuff;
         public float BasePrice => basePrice;
         
-        public void Initialize(PlantData data, Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
+        public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
         {
             currentTile = tile;
         }

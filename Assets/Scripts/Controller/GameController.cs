@@ -16,10 +16,11 @@ namespace Controller
         [SerializeField] private int defaultDepth = 10;
         [SerializeField] private GridController gridController;
         [SerializeField] private PlantDatabase plantDataBase;
-
-        [SerializeField] private float oxygen;
+        [SerializeField] private int oxygen;
         
         private PlayerData playerData;
+
+        public int Oxygen => oxygen;
 
         private void Start()
         {
@@ -49,7 +50,7 @@ namespace Controller
             playerData.grids[id] = grid;
         }
 
-        public void AddOxygen(float value)
+        public void AddOxygen(int value)
         {
             oxygen += value;
         }

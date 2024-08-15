@@ -180,6 +180,7 @@ MonoBehaviour:
   buffText: {fileID: 8395989325135087480}
   priceText: {fileID: 1347699483662747086}
   renderImage: {fileID: 1992575991560871625}
+  button: {fileID: 4347474926293131223}
 --- !u!1 &2857391413167481993
 GameObject:
   m_ObjectHideFlags: 0

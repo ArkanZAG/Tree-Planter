@@ -24,7 +24,7 @@ namespace Controller
         {
             if (tile.CurrentPlant == null)
             {
-                plantUI.SpawnElements();
+                plantUI.SpawnElements(tile);
                 plantUI.Show(true);
             }
         }

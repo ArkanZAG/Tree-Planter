@@ -40,6 +40,7 @@ namespace Controller
                 {
                     var pos = startPos + new Vector3(x, 0f, y);
                     var tile = Instantiate(tilePrefab, pos, Quaternion.identity);
+                    tile.Initialize(x, y);
                     spawnedTile[x][y] = tile;
                 }
             }
@@ -56,13 +57,18 @@ namespace Controller
                 var data = dataPlants[i];
                 var tile = spawnedTile[data.x][data.y];
                 var prefab = plantDataBase.GetPrefab(data.id);
-                var obj = Instantiate(prefab, tile.transform);
-                var iPlant = obj.GetComponent<IPlant>();
-                var neighbours = GetNeighbours(data.x, data.y);
-                
-                iPlant.Initialize(data, tile, neighbours.ToArray(), gameController, this);
-                tile.SetPlant(iPlant);
+                PlantToTile(prefab, tile);
             }
+        }
+
+        public void PlantToTile(GameObject prefab, Tile tile)
+        {
+            var obj = Instantiate(prefab, tile.transform);
+            var iPlant = obj.GetComponent<IPlant>();
+            var neighbours = GetNeighbours(tile.X, tile.Y);
+                
+            iPlant.Initialize(tile, neighbours.ToArray(), gameController, this);
+            tile.SetPlant(iPlant);
         }
 
         private IEnumerable<Tile> GetNeighbours(int x, int y)

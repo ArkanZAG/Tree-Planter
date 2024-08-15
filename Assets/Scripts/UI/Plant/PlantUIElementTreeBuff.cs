@@ -1,3 +1,5 @@
+using Controller;
+using GridSystem;
 using ObjectRendering;
 using Plants;
 using TMPro;
@@ -13,30 +15,39 @@ namespace UI.Plant
         [SerializeField] private TextMeshProUGUI buffText;
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private RenderImage renderImage;
+        [SerializeField] private Button button;
         
-        public void Display(TreeBuff treeBuff)
+        private GridController gridController;
+        private TreeBuff treeBuff;
+        private Tile tile;
+        public void Display(TreeBuff buff, GridController grid, Tile injectTile)
         {
-            Render(treeBuff.gameObject);
+            Render(buff.gameObject);
             
-            if (treeBuff.BaseOxygenBuff != 0)
+            if (buff.BaseOxygenBuff != 0)
             {
-                var oxygen = treeBuff.BaseOxygenBuff;
+                var oxygen = buff.BaseOxygenBuff;
                 buffText.text = $"{oxygen} / s";
             }
-            else if (treeBuff.BaseSpeedBuff != 0)
+            else if (buff.BaseSpeedBuff != 0)
             {
-                var speed = treeBuff.BaseSpeedBuff;
+                var speed = buff.BaseSpeedBuff;
                 buffText.text = $"{speed} / s";
             }
-            priceText.text = treeBuff.BasePrice.ToString();
-            
+            priceText.text = buff.BasePrice.ToString();
+            gridController = grid;
+            tile = injectTile;
         }
-        
         private void Render(GameObject obj)
         {
             renderImage.Render(obj);
             var spin = renderImage.RenderObject.AddComponent<SpinForever>();
             spin.SetSpeed(10f);
+        }
+
+        private void OnClick()
+        {
+            gridController.PlantToTile(treeBuff.gameObject, tile);
         }
     }
 }

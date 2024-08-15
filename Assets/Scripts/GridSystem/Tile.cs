@@ -8,6 +8,11 @@ namespace GridSystem
     {
         [SerializeField] private Outline outline;
         [SerializeField] private GameObject visual;
+
+        private int x, y;
+
+        public int X => x;
+        public int Y => y;
     
         private Tween selectTween;
         private IPlant currentPlant = null;
@@ -30,6 +35,12 @@ namespace GridSystem
             visual.transform.localPosition = pos;
         
             selectTween = visual.transform.DOLocalMoveY(originalY, 0.15f).SetEase(Ease.OutCirc);
+        }
+
+        public void Initialize(int newX, int newY)
+        {
+            x = newX;
+            y = newY;
         }
 
         public void SetPlant(IPlant plant)
