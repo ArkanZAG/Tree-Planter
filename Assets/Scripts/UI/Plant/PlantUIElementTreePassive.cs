@@ -13,10 +13,14 @@ namespace UI.Plant
         
         public void Display(TreePassive treePassive)
         {
-            oxygenText.text = treePassive.BaseOxygen.ToString();
-            speedText.text = treePassive.BaseSpeed.ToString();
-            tapText.text = treePassive.BaseTapOxygen.ToString();
-            priceText.text = treePassive.BasePrice.ToString();
+            var oxygen = treePassive.BaseOxygen;
+            var speed = treePassive.BaseSpeed;
+            var tap = treePassive.BaseTapOxygen;
+            var price = treePassive.BasePrice;
+            oxygenText.text = $"{oxygen} / s";
+            speedText.text = $"{speed} s";
+            tapText.text = $"{tap} / tap";
+            priceText.text = $"{price}";
         }
     }
 }

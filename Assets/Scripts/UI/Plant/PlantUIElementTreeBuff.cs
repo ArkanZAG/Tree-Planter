@@ -16,14 +16,15 @@ namespace UI.Plant
         {
             if (treeBuff.BaseOxygenBuff != 0)
             {
-                buffText.text = treeBuff.BaseOxygenBuff.ToString();
-                priceText.text = treeBuff.BasePrice.ToString();
+                var oxygen = treeBuff.BaseOxygenBuff;
+                buffText.text = $"{oxygen} / s";
             }
             else if (treeBuff.BaseSpeedBuff != 0)
             {
-                buffText.text = treeBuff.BaseSpeedBuff.ToString();
-                priceText.text = treeBuff.BasePrice.ToString();
+                var speed = treeBuff.BaseSpeedBuff;
+                buffText.text = $"{speed} / s";
             }
+            priceText.text = treeBuff.BasePrice.ToString();
             
         }
         

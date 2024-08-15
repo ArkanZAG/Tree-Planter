@@ -28,6 +28,8 @@ namespace Plants
             
         private Tile currentTile;
 
+        private GameController currentGameController;
+
         public float BaseOxygen => baseOxygen;
         public float BaseSpeed => baseSpeed;
         public float BaseTapOxygen => baseTapOxygen;
@@ -36,11 +38,12 @@ namespace Plants
         public void Initialize(PlantData data, Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
         {
             currentTile = tile;
+            currentGameController = gameController;
         }
 
         public void OnClick()
         {
-            
+            currentGameController.AddOxygen(baseOxygen);
         }
 
         private void Update()
@@ -58,7 +61,7 @@ namespace Plants
 
         private void GeneratePassive()
         {
-            Debug.Log("$$$");
+             currentGameController.AddOxygen(baseOxygen);
         }
     }
 }

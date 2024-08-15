@@ -47,6 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabId: forest-passive-tap
   biomeType: 1
+  baseOxygen: 10
+  baseSpeed: 3
+  baseTapOxygen: 10
+  basePrice: 100
+  speedPerGenerationLevel: 0.1
 --- !u!1 &7677812797355329410
 GameObject:
   m_ObjectHideFlags: 0

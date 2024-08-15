@@ -154,7 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabId: forest-passive-speed
   biomeType: 1
-  baseOxygen: 1
-  baseSpeed: 1
-  baseTapOxygen: 1
+  baseOxygen: 10
+  baseSpeed: 2
+  baseTapOxygen: 5
+  basePrice: 100
   speedPerGenerationLevel: 0.1

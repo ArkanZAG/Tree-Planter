@@ -152,3 +152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabId: forest-buff-speed
   biomeType: 1
+  baseOxygenBuff: 0
+  baseSpeedBuff: 0.1
+  basePrice: 100

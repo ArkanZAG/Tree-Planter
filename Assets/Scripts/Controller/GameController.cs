@@ -16,6 +16,8 @@ namespace Controller
         [SerializeField] private int defaultDepth = 10;
         [SerializeField] private GridController gridController;
         [SerializeField] private PlantDatabase plantDataBase;
+
+        [SerializeField] private float oxygen;
         
         private PlayerData playerData;
 
@@ -45,6 +47,11 @@ namespace Controller
 
             playerData.currentGridId = id;
             playerData.grids[id] = grid;
+        }
+
+        public void AddOxygen(float value)
+        {
+            oxygen += value;
         }
     }
 }
