@@ -10,6 +10,17 @@ namespace UI.Player
         [SerializeField] private TextMeshProUGUI oxygen;
         [SerializeField] private TextMeshProUGUI oxygenIncome;
         [SerializeField] private GameController gameController;
+        [SerializeField] private GridController gridController;
+
+        private void Awake()
+        {
+            gridController.OnTilesUpdated += OnTilesUpdated;
+        }
+
+        private void OnTilesUpdated()
+        {
+            oxygenIncome.text = $"+ {gridController.GetTotalIncomePerSecond():F1} / s";
+        }
 
         public void Display()
         {

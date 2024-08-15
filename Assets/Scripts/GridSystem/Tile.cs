@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Plants;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace GridSystem
     
         private Tween selectTween;
         private IPlant currentPlant = null;
+
+        public event Action OnTileUpdated;
 
         public IPlant CurrentPlant => currentPlant;
 
@@ -43,15 +46,18 @@ namespace GridSystem
             y = newY;
         }
 
-        public void SetPlant(IPlant plant)
+        public void SetPlant(IPlant plant, bool invokeUpdate = true)
         {
             currentPlant = plant;
+            if (invokeUpdate) OnTileUpdated?.Invoke();
         }
 
-        public void RemovePlant()
+        public void RemovePlant(bool invokeUpdate = true)
         {
             Destroy(currentPlant.GameObject);
             currentPlant = null;
+            
+            if (invokeUpdate) OnTileUpdated?.Invoke();
         }
     }
 }

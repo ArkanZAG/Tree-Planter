@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
@@ -15,9 +16,12 @@ namespace Controller
         [SerializeField] private MeshGrid grid;
         [SerializeField] private PlantDatabase plantDataBase;
         [SerializeField] private GameController gameController;
+        [SerializeField] private EffectsController effectsController;
     
         private Tile[][] spawnedTile;
         private Tile currentTile = null;
+
+        public event Action OnTilesUpdated;
 
         public Tile SelectedTile => currentTile;
         public Vector3 startPos;
@@ -41,6 +45,7 @@ namespace Controller
                     var pos = startPos + new Vector3(x, 0f, y);
                     var tile = Instantiate(tilePrefab, pos, Quaternion.identity);
                     tile.Initialize(x, y);
+                    tile.OnTileUpdated += OnAnyTileUpdated;
                     spawnedTile[x][y] = tile;
                 }
             }
@@ -48,8 +53,15 @@ namespace Controller
             grid.Generate(data.width, data.depth);
 
             SpawnPlants(data.plants);
+            
+            OnTilesUpdated?.Invoke();
         }
-        
+
+        private void OnAnyTileUpdated()
+        {
+            OnTilesUpdated?.Invoke();
+        }
+
         private void SpawnPlants(PlantData[] dataPlants)
         {
             for (int i = 0; i < dataPlants.Length; i++)
@@ -57,18 +69,18 @@ namespace Controller
                 var data = dataPlants[i];
                 var tile = spawnedTile[data.x][data.y];
                 var prefab = plantDataBase.GetPrefab(data.id);
-                PlantToTile(prefab, tile);
+                PlantToTile(prefab, tile, false);
             }
         }
 
-        public void PlantToTile(GameObject prefab, Tile tile)
+        public void PlantToTile(GameObject prefab, Tile tile, bool invokeUpdate = true)
         {
             var obj = Instantiate(prefab, tile.transform);
             var iPlant = obj.GetComponent<IPlant>();
             var neighbours = GetNeighbours(tile.X, tile.Y);
                 
-            iPlant.Initialize(tile, neighbours.ToArray(), gameController, this);
-            tile.SetPlant(iPlant);
+            iPlant.Initialize(tile, neighbours.ToArray(), gameController, this, effectsController);
+            tile.SetPlant(iPlant, invokeUpdate);
         }
 
         private IEnumerable<Tile> GetNeighbours(int x, int y)
@@ -92,6 +104,22 @@ namespace Controller
                 tiles.Add(spawnedTile[x][y + 1]);
 
             return tiles;
+        }
+
+        public float GetTotalIncomePerSecond()
+        {
+            float total = 0;
+            
+            foreach (var tileArray in spawnedTile)
+                foreach (var tile in tileArray)
+                {
+                    if (tile.CurrentPlant is not TreePassive treePassive) continue;
+                    var gps = treePassive.GetGenerationPerSecond();
+                    var amount = treePassive.GetPassiveOxygenGeneration();
+                    total += gps * amount;
+                }
+
+            return total;
         }
 
         public void SelectTile(Tile tile)

@@ -31,17 +31,19 @@ namespace Plants
             
         private Tile currentTile;
 
-        private GameController currentGameController;
+        private GameController game;
+        private EffectsController effects;
 
         public int BaseOxygen => baseOxygen;
         public float BaseSpeed => baseSpeed;
         public int BaseTapOxygen => baseTapOxygen;
         public float BasePrice => basePrice;
         
-        public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController)
+        public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController, EffectsController effectsController)
         {
             currentTile = tile;
-            currentGameController = gameController;
+            game = gameController;
+            effects = effectsController;
             initialized = true;
         }
 
@@ -49,7 +51,8 @@ namespace Plants
         {
             if (!initialized) return;
             var oxygenGeneration = GetTapOxygenGeneration();
-            currentGameController.AddOxygen(oxygenGeneration);
+            game.AddOxygen(oxygenGeneration);
+            effects.ShowFlyingText($"+{oxygenGeneration}", transform.position);
         }
 
         private void Update()
@@ -57,7 +60,7 @@ namespace Plants
             if (!initialized) return;
 
             currentTimer += Time.deltaTime;
-            var gps = baseSpeed + (generationLevel * speedPerGenerationLevel);
+            var gps = GetGenerationPerSecond();
             var targetTime = 1 / gps;
             Debug.Log("Current Time : " + currentTimer + " Target Time : " + targetTime);
             while (currentTimer >= targetTime)
@@ -71,13 +74,17 @@ namespace Plants
         {
             if (!initialized) return;
             var oxygenGeneration = GetPassiveOxygenGeneration();
-            currentGameController.AddOxygen(oxygenGeneration);
+            game.AddOxygen(oxygenGeneration);
+            effects.ShowFlyingText($"+{oxygenGeneration}", transform.position, 1f / GetGenerationPerSecond());
         }
 
 
         #region Calculations
         
-        private int GetPassiveOxygenGeneration()
+        public float GetGenerationPerSecond()
+            => baseSpeed + (generationLevel * speedPerGenerationLevel);
+        
+        public int GetPassiveOxygenGeneration()
             => Mathf.RoundToInt(baseOxygen * (1 + treeLevel * 0.5f));
         
         private int GetTapOxygenGeneration()
