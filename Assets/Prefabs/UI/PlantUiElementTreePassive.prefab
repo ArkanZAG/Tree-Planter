@@ -63,6 +63,7 @@ MonoBehaviour:
   tapText: {fileID: 780395881627673577}
   priceText: {fileID: 1037735581125712197}
   renderImage: {fileID: 5778302023709215261}
+  button: {fileID: 4530505498005371883}
 --- !u!1 &1453177855457791774
 GameObject:
   m_ObjectHideFlags: 0

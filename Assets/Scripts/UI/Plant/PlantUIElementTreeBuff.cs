@@ -1,3 +1,4 @@
+using System;
 using Controller;
 using GridSystem;
 using ObjectRendering;
@@ -18,11 +19,23 @@ namespace UI.Plant
         [SerializeField] private Button button;
         
         private GridController gridController;
-        private TreeBuff treeBuff;
+        private UIController uiController;
+        private GameObject prefab;
         private Tile tile;
-        public void Display(TreeBuff buff, GridController grid, Tile injectTile)
+
+        private void Awake()
         {
-            Render(buff.gameObject);
+            button.onClick.AddListener(OnClick);
+        }
+
+        public void Display(TreeBuff buff, UIController ui, GridController grid, Tile injectTile)
+        {
+            uiController = ui;
+            gridController = grid;
+            tile = injectTile;
+            prefab = buff.gameObject;
+            
+            Render(prefab);
             
             if (buff.BaseOxygenBuff != 0)
             {
@@ -35,8 +48,6 @@ namespace UI.Plant
                 buffText.text = $"{speed} / s";
             }
             priceText.text = buff.BasePrice.ToString();
-            gridController = grid;
-            tile = injectTile;
         }
         private void Render(GameObject obj)
         {
@@ -47,7 +58,8 @@ namespace UI.Plant
 
         private void OnClick()
         {
-            gridController.PlantToTile(treeBuff.gameObject, tile);
+            gridController.PlantToTile(prefab, tile);
+            uiController.HideTray();
         }
     }
 }

@@ -1,7 +1,11 @@
+using System;
+using Controller;
+using GridSystem;
 using ObjectRendering;
 using Plants;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Plant
 {
@@ -12,10 +16,32 @@ namespace UI.Plant
         [SerializeField] private TextMeshProUGUI tapText;
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private RenderImage renderImage;
+        [SerializeField] private Button button;
 
-        public void Display(TreePassive treePassive)
+        private UIController uiController;
+        private GridController gridController;
+        private GameObject prefab;
+        private Tile tile;
+
+        private void Awake()
         {
-            Render(treePassive.gameObject);
+            button.onClick.AddListener(OnClick);
+        }
+
+        private void OnClick()
+        {
+            gridController.PlantToTile(prefab, tile);
+            uiController.HideTray();
+        }
+
+        public void Display(TreePassive treePassive, UIController ui, GridController grid, Tile injectTile)
+        {
+            prefab = treePassive.gameObject;
+            uiController = ui;
+            gridController = grid;
+            tile = injectTile;
+            
+            Render(prefab);
             
             var oxygen = treePassive.BaseOxygen;
             var speed = treePassive.BaseSpeed;
