@@ -47,5 +47,11 @@ namespace GridSystem
         {
             currentPlant = plant;
         }
+
+        public void RemovePlant()
+        {
+            Destroy(currentPlant.GameObject);
+            currentPlant = null;
+        }
     }
 }

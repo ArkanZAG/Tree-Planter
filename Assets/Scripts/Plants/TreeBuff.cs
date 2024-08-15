@@ -1,3 +1,4 @@
+using System;
 using Controller;
 using Data;
 using GridSystem;
@@ -7,6 +8,7 @@ namespace Plants
 {
     public class TreeBuff : MonoBehaviour, IPlant
     {
+        public GameObject GameObject => gameObject;
         public Tile Tile => currentTile;
         public string Id => prefabId;
         [SerializeField] private string prefabId;
@@ -30,6 +32,12 @@ namespace Plants
         public void OnClick()
         {
             
+        }
+
+        //TODO: HARUS DI ISI
+        public UpgradeDefinition[] GetUpgrades()
+        {
+            return Array.Empty<UpgradeDefinition>();
         }
     }
 }
