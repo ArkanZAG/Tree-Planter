@@ -19,6 +19,7 @@ namespace UI.Plant
 
         [SerializeField] private GridController gridController;
         [SerializeField] private UIController uiController;
+        [SerializeField] private GameController gameController;
 
         private List<GameObject> spawnedElement = new();
         
@@ -37,14 +38,14 @@ namespace UI.Plant
                 {
                     var obj = Instantiate(elementTreeBuffPrefab, parent);
                     var treeBuffElement = obj.GetComponent<PlantUIElementTreeBuff>();
-                    treeBuffElement.Display(treeBuff, uiController, gridController, tile);
+                    treeBuffElement.Display(treeBuff, uiController, gridController, tile, gameController);
                     spawnedElement.Add(obj);
                 }
                 else if (plant is TreePassive treePassive)
                 {
                     var obj = Instantiate(elementTreePassivePrefab, parent);
                     var treePassiveElement = obj.GetComponent<PlantUIElementTreePassive>();
-                    treePassiveElement.Display(treePassive, uiController, gridController, tile);
+                    treePassiveElement.Display(treePassive, uiController, gridController, tile, gameController);
                     spawnedElement.Add(obj);
                 }
             }

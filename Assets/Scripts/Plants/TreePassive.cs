@@ -17,7 +17,7 @@ namespace Plants
         [SerializeField] [Tooltip("Base Oxygen Per Generation")]private int baseOxygen;
         [SerializeField] [Tooltip("Base Speed Oxygen Generation Per Second")] private float baseSpeed;
         [SerializeField] [Tooltip("Base Oxygen Per Tap")]private int baseTapOxygen;
-        [SerializeField] private float basePrice;
+        [SerializeField] private int basePrice;
         [Header("Modifier")]
         [SerializeField] private float speedPerGenerationLevel = 0.1f;
 
@@ -37,7 +37,7 @@ namespace Plants
         public int BaseOxygen => baseOxygen;
         public float BaseSpeed => baseSpeed;
         public int BaseTapOxygen => baseTapOxygen;
-        public float BasePrice => basePrice;
+        public int BasePrice => basePrice;
         
         public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController, EffectsController effectsController)
         {
@@ -54,7 +54,6 @@ namespace Plants
             game.AddOxygen(oxygenGeneration);
             effects.ShowFlyingText($"+{oxygenGeneration}", transform.position);
         }
-
         private void Update()
         {
             if (!initialized) return;
@@ -69,7 +68,6 @@ namespace Plants
                 GeneratePassive();
             }
         }
-
         private void GeneratePassive()
         {
             if (!initialized) return;

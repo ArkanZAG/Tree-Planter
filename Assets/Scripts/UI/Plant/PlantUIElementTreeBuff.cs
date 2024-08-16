@@ -22,14 +22,18 @@ namespace UI.Plant
         private UIController uiController;
         private GameObject prefab;
         private Tile tile;
+        private TreeBuff tree;
+        private GameController gameController;
 
         private void Awake()
         {
             button.onClick.AddListener(OnClick);
         }
 
-        public void Display(TreeBuff buff, UIController ui, GridController grid, Tile injectTile)
+        public void Display(TreeBuff buff, UIController ui, GridController grid, Tile injectTile, GameController game)
         {
+            tree = buff;
+            gameController = game;
             uiController = ui;
             gridController = grid;
             tile = injectTile;
@@ -58,8 +62,13 @@ namespace UI.Plant
 
         private void OnClick()
         {
-            gridController.PlantToTile(prefab, tile);
-            uiController.HideTray();
+            if (gameController.Oxygen >= tree.BasePrice)
+            {
+                gridController.PlantToTile(prefab, tile);
+                uiController.HideTray();
+                gameController.AddOxygen(-tree.BasePrice);
+            }
+            
         }
     }
 }

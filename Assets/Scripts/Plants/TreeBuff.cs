@@ -16,13 +16,13 @@ namespace Plants
         [Header("Stats")] 
         [SerializeField] private float baseOxygenBuff;
         [SerializeField] private float baseSpeedBuff;
-        [SerializeField] private float basePrice;
+        [SerializeField] private int basePrice;
         
         private Tile currentTile;
 
         public float BaseOxygenBuff => baseOxygenBuff;
         public float BaseSpeedBuff => baseSpeedBuff;
-        public float BasePrice => basePrice;
+        public int BasePrice => basePrice;
         
         public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController, EffectsController effectsController)
         {
