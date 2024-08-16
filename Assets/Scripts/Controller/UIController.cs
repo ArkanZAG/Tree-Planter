@@ -14,18 +14,23 @@ namespace Controller
 
         private void Awake()
         {
+            DisableAllUI();
+        }
+
+        private void DisableAllUI()
+        {
             plantUI.Show(false);
             upgradeUI.Show(false);
         }
 
         public void HideTray()
         {
-            plantUI.Show(false);
-            upgradeUI.Show(false);
+            DisableAllUI();
         }
 
         public void ShowTray(Tile tile)
         {
+            DisableAllUI();
             if (tile.CurrentPlant == null)
             {
                 plantUI.SpawnElements(tile);
