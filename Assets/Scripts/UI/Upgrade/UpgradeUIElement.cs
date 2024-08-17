@@ -25,8 +25,8 @@ namespace UI.Upgrade
         {
             upgradeDefinition = upgrade;
 
-            levelText.text = upgrade.currentLevel.ToString();
-            priceText.text = upgrade.cost.ToString();
+            levelText.text = upgrade.getCurrentLevel.Invoke().ToString();
+            priceText.text = upgrade.getCurrentCost.Invoke().ToString();
             titleText.text = upgrade.title;
 
         }
@@ -34,6 +34,7 @@ namespace UI.Upgrade
         private void OnClick()
         {
             upgradeDefinition.OnUpgraded?.Invoke();
+            Display(upgradeDefinition);
         }
     }
 }

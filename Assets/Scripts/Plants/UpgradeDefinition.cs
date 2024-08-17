@@ -1,21 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Plants
 {
-    //todo: if UI is laggy, visit this again with Func, ask Arya
     public class UpgradeDefinition
     {
         public readonly string title;
-        public readonly int currentLevel;
-        public readonly int cost;
 
         public Action OnUpgraded;
+        public Func<int> getCurrentLevel;
+        public Func<int> getCurrentCost;
 
-        public UpgradeDefinition(string title, int currentLevel, int cost, Action onUpgraded)
+        public UpgradeDefinition(string title, Func<int> currentLevel, Func<int> cost, Action onUpgraded)
         {
             this.title = title;
-            this.currentLevel = currentLevel;
-            this.cost = cost;
+            getCurrentLevel = currentLevel;
+            getCurrentCost = cost;
             OnUpgraded = onUpgraded;
         }
     }

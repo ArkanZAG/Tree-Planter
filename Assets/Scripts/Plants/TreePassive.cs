@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Controller;
 using Data;
 using GridSystem;
@@ -103,20 +104,17 @@ namespace Plants
 
         public UpgradeDefinition[] GetUpgrades()
         {
-            var treeLvlCost = GetTreeLevelUpgradeCost();
-            
-            var genLvlCost = GetGenLevelUpgradeCost();
-            
-            var tapLvlCost = GetTapLevelUpgradeCost();
-            
             return new UpgradeDefinition[]
             {
-                new("Tree Level", treeLevel, treeLvlCost, OnTreeLevelUpgrade),
-                new("Generation Level", generationLevel, genLvlCost, OnGenLevelUpgrade),
-                new("Tap Level", tapLevel, tapLvlCost, OnTapLevelUpgrade),
+                new("Tree Level", GetTreeLevel, GetTreeLevelUpgradeCost, OnTreeLevelUpgrade),
+                new("Generation Level", GetGenerationLevel, GetGenLevelUpgradeCost, OnGenLevelUpgrade),
+                new("Tap Level", GetTapLevel, GetTapLevelUpgradeCost, OnTapLevelUpgrade),
             };
         }
 
+        public int GetTreeLevel() => treeLevel;
+        public int GetGenerationLevel() => generationLevel;
+        public int GetTapLevel() => tapLevel;
         private void OnTreeLevelUpgrade() => treeLevel++;
         private void OnGenLevelUpgrade() => generationLevel++;
         private void OnTapLevelUpgrade() => tapLevel++;
