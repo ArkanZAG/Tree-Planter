@@ -3688,6 +3688,7 @@ MonoBehaviour:
   holder: {fileID: 1250430484518271083}
   parent: {fileID: 4741087695297459275}
   uiController: {fileID: 3257032805222240084}
+  gameController: {fileID: 1396357481}
 --- !u!224 &9155359243184794425
 RectTransform:
   m_ObjectHideFlags: 0

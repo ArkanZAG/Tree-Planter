@@ -15,6 +15,7 @@ namespace UI.Upgrade
         [SerializeField] private GameObject holder;
         [SerializeField] private Transform parent;
         [SerializeField] private UIController uiController;
+        [SerializeField] private GameController gameController;
 
         private List<GameObject> spawnedElement = new();
 
@@ -34,7 +35,7 @@ namespace UI.Upgrade
             {
                 var obj = Instantiate(upgradeElementUIPrefabs, parent);
                 var uiUpgradeElement = obj.GetComponent<UpgradeUIElement>();
-                uiUpgradeElement.Display(upgradeDefintion);
+                uiUpgradeElement.Display(upgradeDefintion, gameController);
                 spawnedElement.Add(obj);
             }
             

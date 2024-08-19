@@ -1,4 +1,5 @@
 using System;
+using Controller;
 using Plants;
 using TMPro;
 using UnityEngine;
@@ -15,15 +16,17 @@ namespace UI.Upgrade
         [SerializeField] private Button button;
         
         private UpgradeDefinition upgradeDefinition;
+        private GameController gameController;
 
         private void Awake()
         {
             button.onClick.AddListener(OnClick);
         }
 
-        public void Display(UpgradeDefinition upgrade)
+        public void Display(UpgradeDefinition upgrade, GameController game)
         {
             upgradeDefinition = upgrade;
+            gameController = game;
 
             levelText.text = upgrade.getCurrentLevel.Invoke().ToString();
             priceText.text = upgrade.getCurrentCost.Invoke().ToString();
@@ -33,8 +36,15 @@ namespace UI.Upgrade
 
         private void OnClick()
         {
-            upgradeDefinition.OnUpgraded?.Invoke();
-            Display(upgradeDefinition);
+            var cost = upgradeDefinition.getCurrentCost.Invoke();
+            
+            if (gameController.Oxygen >= cost)
+            {
+                upgradeDefinition.OnUpgraded?.Invoke();
+                Display(upgradeDefinition, gameController);
+                gameController.AddOxygen(-cost);
+            }
+            
         }
     }
 }
