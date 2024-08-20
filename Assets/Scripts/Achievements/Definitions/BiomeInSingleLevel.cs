@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Achievements.Definitions
 {
+    [CreateAssetMenu(menuName = "Achievements/BiomeInSingleLevel")]
     public class BiomeInSingleLevel : AchievementDefinition
     {
         [SerializeField] private BiomeType biome;
