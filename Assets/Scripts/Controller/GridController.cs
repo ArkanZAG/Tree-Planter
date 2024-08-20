@@ -21,6 +21,8 @@ namespace Controller
         private Tile[][] spawnedTile;
         private Tile currentTile = null;
 
+        private int width, depth;
+
         public event Action OnTilesUpdated;
 
         public Tile SelectedTile => currentTile;
@@ -28,19 +30,22 @@ namespace Controller
 
         public void Generate(GridData data)
         {
-            spawnedTile = new Tile[data.width][];
-            for (int x = 0; x < data.width; x++)
-                spawnedTile[x] = new Tile[data.depth];
+            width = data.width;
+            depth = data.depth; 
+            
+            spawnedTile = new Tile[width][];
+            for (int x = 0; x < width; x++)
+                spawnedTile[x] = new Tile[depth];
             
             var offset = 0.5f;
 
-            var startValueX = data.width / 2f - offset;
-            var startValueZ = data.depth / 2f - offset;
+            var startValueX = width / 2f - offset;
+            var startValueZ = depth / 2f - offset;
             startPos = new Vector3(-startValueX, 0f, -startValueZ);
 
-            for (int x = 0; x < data.width; x++)
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < data.depth; y++)
+                for (int y = 0; y < depth; y++)
                 {
                     var pos = startPos + new Vector3(x, 0f, y);
                     var tile = Instantiate(tilePrefab, pos, Quaternion.identity);
@@ -50,7 +55,7 @@ namespace Controller
                 }
             }
         
-            grid.Generate(data.width, data.depth);
+            grid.Generate(width, depth);
 
             SpawnPlants(data.plants);
             
@@ -60,6 +65,7 @@ namespace Controller
         private void OnAnyTileUpdated()
         {
             OnTilesUpdated?.Invoke();
+            gameController.SaveProgress();
         }
 
         private void SpawnPlants(PlantData[] dataPlants)
@@ -122,6 +128,21 @@ namespace Controller
             return total;
         }
 
+        public int GetPlantCount(BiomeType biome)
+        {
+            var total = 0;
+            
+            foreach (var tileArray in spawnedTile)
+            foreach (var tile in tileArray)
+            {
+                if (tile.CurrentPlant == null) continue;
+                if (tile.CurrentPlant.Biome != biome) continue;
+                total++;
+            }
+
+            return total;
+        }
+
         public void SelectTile(Tile tile)
         {
             foreach (var tileArray in spawnedTile)
@@ -134,12 +155,39 @@ namespace Controller
             tile.AnimatePop();
             currentTile = tile;
         }
-        
+
         public void TryDeselectTile()
         {
             if (currentTile == null) return;
             currentTile.SetHighlight(false);
             currentTile = null;
+        }
+
+        private bool IsGridCompleted()
+        {
+            foreach (var tiles in spawnedTile)
+            foreach (var tile in tiles)
+            {
+                if (tile.CurrentPlant == null) return false;
+                if (!tile.CurrentPlant.IsMaxLevel()) return false;
+            }
+
+            return true;
+        }
+
+        public GridData GetCurrentAsData(int version)
+        {
+            var plantList = new List<PlantData>();
+
+            foreach (var tiles in spawnedTile)
+                foreach (var tile in tiles)
+                {
+                    if (tile.CurrentPlant == null) continue;
+                    var data = tile.GetPlantData(version);
+                    plantList.Add(data);
+                }
+
+            return new GridData(version, width, depth, plantList.ToArray(), IsGridCompleted());
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Data;
 using DG.Tweening;
 using Plants;
 using UnityEngine;
@@ -46,9 +47,12 @@ namespace GridSystem
             y = newY;
         }
 
+        public PlantData GetPlantData(int version) => new(x, y, currentPlant.Id, currentPlant.GetValues(version));
+
         public void SetPlant(IPlant plant, bool invokeUpdate = true)
         {
             currentPlant = plant;
+            SetBiome(currentPlant.Biome);
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }
 
@@ -58,6 +62,12 @@ namespace GridSystem
             currentPlant = null;
             
             if (invokeUpdate) OnTileUpdated?.Invoke();
+        }
+
+        public void SetBiome(BiomeType biome)
+        {
+            
+            //TODO: CHANGE VISUAL HERE BASED ON BIOME
         }
     }
 }

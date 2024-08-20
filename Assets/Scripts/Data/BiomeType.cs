@@ -4,5 +4,7 @@ namespace Data
     {
         None = 0,
         Forest,
+        Serengeti,
+        Arctic
     }
 }

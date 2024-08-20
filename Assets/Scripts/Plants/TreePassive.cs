@@ -11,6 +11,7 @@ namespace Plants
     {
         public GameObject GameObject => gameObject;
         public Tile Tile => currentTile;
+        public BiomeType Biome => biomeType;
         public string Id => prefabId;
         [SerializeField] private string prefabId;
         [SerializeField] private BiomeType biomeType;
@@ -19,6 +20,9 @@ namespace Plants
         [SerializeField] [Tooltip("Base Speed Oxygen Generation Per Second")] private float baseSpeed;
         [SerializeField] [Tooltip("Base Oxygen Per Tap")]private int baseTapOxygen;
         [SerializeField] private int basePrice;
+        [SerializeField] private int maxTreeLevel = 200;
+        [SerializeField] private int maxGenerationLevel = 200;
+        [SerializeField] private int maxTapLevel = 200;
         [Header("Modifier")]
         [SerializeField] private float speedPerGenerationLevel = 0.1f;
 
@@ -26,11 +30,15 @@ namespace Plants
         private int generationLevel = 0;
         private int tapLevel = 0;
 
+        private int totalOxygenBonus;
+        private float totalSpeedBonus;
+
         private float currentTimer;
 
         private bool initialized = false;
             
         private Tile currentTile;
+        private Tile[] currentNeighbours;
 
         private GameController game;
         private EffectsController effects;
@@ -43,11 +51,17 @@ namespace Plants
         public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController, EffectsController effectsController)
         {
             currentTile = tile;
+            currentNeighbours = neighbours;
             game = gameController;
             effects = effectsController;
             initialized = true;
-        }
 
+            foreach (var neighbour in neighbours)
+                neighbour.OnTileUpdated += CalculateTileBonuses;
+            
+            CalculateTileBonuses();
+        }
+        
         public void OnClick()
         {
             if (!initialized) return;
@@ -62,7 +76,7 @@ namespace Plants
             currentTimer += Time.deltaTime;
             var gps = GetGenerationPerSecond();
             var targetTime = 1 / gps;
-            Debug.Log("Current Time : " + currentTimer + " Target Time : " + targetTime);
+            //Debug.Log("Current Time : " + currentTimer + " Target Time : " + targetTime);
             while (currentTimer >= targetTime)
             {
                 currentTimer -= targetTime;
@@ -77,14 +91,55 @@ namespace Plants
             effects.ShowFlyingText($"+{oxygenGeneration}", transform.position, 1f / GetGenerationPerSecond());
         }
 
+        public bool IsMaxLevel()
+        {
+            return treeLevel >= maxTreeLevel
+                   && generationLevel >= maxGenerationLevel
+                   && tapLevel >= maxTapLevel;
+        }
+
+        #region Save
+
+        public void SetValues(Dictionary<string, int> values, int version)
+        {
+            treeLevel = values.GetValueOrDefault("treeLevel", 0);
+            generationLevel = values.GetValueOrDefault("generationLevel", 0);
+            tapLevel = values.GetValueOrDefault("tapLevel", 0);
+        }
+
+        public Dictionary<string, int> GetValues(int version)
+        {
+            return new Dictionary<string, int>()
+            {
+                {"treeLevel", treeLevel},
+                {"generationLevel", generationLevel},
+                {"tapLevel", tapLevel},
+            };
+        }
+        
+        #endregion
 
         #region Calculations
-        
+
+        private void CalculateTileBonuses()
+        {
+            totalOxygenBonus = 0;
+            totalSpeedBonus = 0f;
+            
+            foreach (var tile in currentNeighbours)
+            {
+                if (tile.CurrentPlant is not TreeBuff treeBuff) continue;
+                
+                totalOxygenBonus += treeBuff.GetOxygenBonus();
+                totalSpeedBonus += treeBuff.GetSpeedBonus();
+            }
+        }
+
         public float GetGenerationPerSecond()
-            => baseSpeed + (generationLevel * speedPerGenerationLevel);
+            => baseSpeed + (generationLevel * speedPerGenerationLevel) + totalSpeedBonus;
         
         public int GetPassiveOxygenGeneration()
-            => Mathf.RoundToInt(baseOxygen * (1 + treeLevel * 0.5f));
+            => Mathf.RoundToInt(baseOxygen * (1 + treeLevel * 0.5f)) + totalOxygenBonus;
         
         private int GetTapOxygenGeneration()
             => Mathf.RoundToInt(baseTapOxygen + (1 + tapLevel * 0.2f));

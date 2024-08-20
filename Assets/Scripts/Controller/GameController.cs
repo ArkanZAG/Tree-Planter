@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using Plants;
 using Save;
@@ -29,20 +30,25 @@ namespace Controller
             if (SaveSystem.HasSaveData())
             {
                 playerData = SaveSystem.Load();
+                oxygen = playerData.oxygen;
             }
             else
             {
-                playerData = new(0, String.Empty, new Dictionary<string, GridData>());
+                playerData = CreateEmptyStartingData();
                 RegisterNewGrid();
+                SaveSystem.Save(playerData);
             }
 
             var gridToLoad = playerData.grids[playerData.currentGridId];
             gridController.Generate(gridToLoad);
         }
 
+        private PlayerData CreateEmptyStartingData()
+            => new(oxygen, String.Empty, new Dictionary<string, GridData>(), new HashSet<string>());
+
         private void RegisterNewGrid()
         {
-            var grid = new GridData(VERSION, defaultWidth, defaultDepth, Array.Empty<PlantData>());
+            var grid = new GridData(VERSION, defaultWidth, defaultDepth, Array.Empty<PlantData>(), false);
 
             var id = ShortUid.New();
 
@@ -54,5 +60,36 @@ namespace Controller
         {
             oxygen += value;
         }
+
+        public void SaveProgress()
+        {
+            playerData.oxygen = oxygen;
+            playerData.grids[playerData.currentGridId] = gridController.GetCurrentAsData(VERSION);
+
+            SaveSystem.Save(playerData);
+        }
+
+        public int GetTotalPlantCount()
+        {
+            int total = 0;
+            
+            foreach (var grid in playerData.grids.Values)
+                total += grid.plants.Length;
+
+            return total;
+        }
+
+        public int GetFinishedLevelCount()
+        {
+            var total = 0;
+
+            foreach (var grid in playerData.grids.Values)
+                if (grid.isCompleted) total++;
+            
+            return total;
+        }
+
+        public bool HasAchieved(string id) => playerData.completedAchievements.Contains(id);
+        public void AddAchievement(string id) => playerData.completedAchievements.Add(id);
     }
 }

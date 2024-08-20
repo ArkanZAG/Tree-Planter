@@ -28,6 +28,9 @@ namespace Plants
 
         public GameObject GetPrefab(string id)
         {
+            if (!mappedPrefabs.ContainsKey(id))
+                throw new Exception($"pasti kamu lupa taro prefab id {id} di database kan heuehuehueheu");
+            
             return mappedPrefabs[id];
         }
     }
