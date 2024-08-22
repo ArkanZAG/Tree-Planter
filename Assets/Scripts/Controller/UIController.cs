@@ -10,6 +10,7 @@ namespace Controller
     public class UIController : MonoBehaviour
     {
         [SerializeField] private PlantUI plantUI;
+        [SerializeField] private PlantUI biomeUI;
         [SerializeField] private UpgradeUI upgradeUI;
 
         private void Awake()
@@ -34,6 +35,7 @@ namespace Controller
             if (tile.CurrentPlant == null)
             {
                 plantUI.SpawnElements(tile);
+                plantUI.SpawnBiomeElement();
                 plantUI.Show(true);
             }
             else

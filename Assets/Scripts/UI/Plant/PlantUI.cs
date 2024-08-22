@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Controller;
+using Data;
 using GridSystem;
 using Plants;
 using UnityEngine;
@@ -11,9 +12,11 @@ namespace UI.Plant
     {
         [SerializeField] private GameObject elementTreeBuffPrefab;
         [SerializeField] private GameObject elementTreePassivePrefab;
+        [SerializeField] private GameObject elementBiome;
         [SerializeField] private GameObject holder;
 
         [SerializeField] private Transform parent;
+        [SerializeField] private Transform biomeParent;
 
         [SerializeField] private PlantDatabase plantDatabase;
 
@@ -48,6 +51,21 @@ namespace UI.Plant
                     treePassiveElement.Display(treePassive, uiController, gridController, tile, gameController);
                     spawnedElement.Add(obj);
                 }
+            }
+        }
+
+        public void SpawnBiomeElement()
+        {
+            Debug.Log("Preparing Spawning PreFabs");
+            foreach (var biome in Enum.GetValues(typeof(BiomeType)))
+            {
+                Debug.Log("spawning");
+                if (biome is not BiomeType biomeType) continue;
+                if (biomeType == BiomeType.None) continue;
+                var obj = Instantiate(elementBiome, biomeParent);
+                var biomeElement = obj.GetComponent<BiomeUIElement>();
+                biomeElement.Display(biomeType);
+                spawnedElement.Add(obj);
             }
         }
 
