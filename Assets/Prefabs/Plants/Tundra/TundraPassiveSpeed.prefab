@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488a2dcbb2cc4df2ab7b81e035cbccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabId: forest-passive-speed
-  biomeType: 1
+  prefabId: tundra-passive-speed
+  biomeType: 2
   baseOxygen: 10
   baseSpeed: 2
   baseTapOxygen: 5

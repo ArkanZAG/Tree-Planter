@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488a2dcbb2cc4df2ab7b81e035cbccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabId: forest-passive-oxygen
-  biomeType: 1
+  prefabId: savannah-passive-oxygen
+  biomeType: 3
   baseOxygen: 15
   baseSpeed: 3
   baseTapOxygen: 5

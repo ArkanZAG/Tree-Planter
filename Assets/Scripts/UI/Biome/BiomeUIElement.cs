@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Data;
+using GridSystem;
 using Plants;
 using UI.Plant;
 using UnityEngine;
@@ -13,12 +14,28 @@ public class BiomeUIElement : MonoBehaviour
     [SerializeField] private Sprite savannaBiomeSprite;
     [SerializeField] private Sprite tundraBiomeSprite;
 
+    [SerializeField] private Button button;
+
     [SerializeField] private PlantDatabase plantDataBase;
 
     [SerializeField] private Image image;
 
-    public void Display(BiomeType biome)
+    private BiomeType biomeType;
+    private PlantUI plantUi;
+    private Tile tile;
+
+    private void Awake()
     {
+        button.onClick.AddListener(OnClick);
+    }
+    
+
+    public void Display(BiomeType biome, PlantUI pUI, Tile tl)
+    {
+        biomeType = biome;
+        plantUi = pUI;
+        tile = tl;
+        
         switch (biome)
         {
             case BiomeType.Forest :
@@ -36,21 +53,9 @@ public class BiomeUIElement : MonoBehaviour
         }
     }
 
-    public void ChangePreFabs()
-    {
-        for (int i = 0; i < plantDataBase.PlantPrefabs.Length; i++)
-        {
-            var plant = plantDataBase.PlantPrefabs[i].GetComponent<IPlant>();
-
-            if (plant == null)
-            {
-                throw new Exception("IPlant Not Found");
-            }
-        }
-    }
-
     public void OnClick()
     {
-        
+        plantUi.SetBiome(biomeType);
+        plantUi.SpawnElements(tile);
     }
 }

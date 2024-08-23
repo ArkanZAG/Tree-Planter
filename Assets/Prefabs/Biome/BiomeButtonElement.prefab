@@ -137,6 +137,9 @@ MonoBehaviour:
   forestBiomeSprite: {fileID: 21300000, guid: 851202856077b5a488b1ebb104fdb07d, type: 3}
   savannaBiomeSprite: {fileID: 21300000, guid: 8706efa878dfbd044a6639cc4c14b38b, type: 3}
   tundraBiomeSprite: {fileID: 21300000, guid: 87958aac51a75024eb1de12bddeceff6, type: 3}
+  button: {fileID: 5996635742113520714}
+  plantDataBase: {fileID: 11400000, guid: 32be6599e90457b4a93d637ac9bb1cfe, type: 2}
+  plantUi: {fileID: 0}
   image: {fileID: 3161234381898648433}
 --- !u!1 &8516173411510229353
 GameObject:

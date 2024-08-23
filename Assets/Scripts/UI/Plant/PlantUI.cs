@@ -4,6 +4,7 @@ using Controller;
 using Data;
 using GridSystem;
 using Plants;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace UI.Plant
@@ -24,19 +25,32 @@ namespace UI.Plant
         [SerializeField] private UIController uiController;
         [SerializeField] private GameController gameController;
 
+        private BiomeType currentBiome = BiomeType.Forest;
+        private Tile currentTile;
+
         private List<GameObject> spawnedElement = new();
+
+        public void SetBiome(BiomeType Biome)
+        {
+            currentBiome = Biome;
+        }
         
         public void SpawnElements(Tile tile)
         {
+            currentTile = tile;
             ClearElement();
+            
             for (int i = 0; i < plantDatabase.PlantPrefabs.Length; i++)
             {
                 var plant = plantDatabase.PlantPrefabs[i].GetComponent<IPlant>();
+                
                 if (plant == null)
                 {
                     throw new Exception("IPlant Not Found");
                 }
-
+                
+                if (plant.Biome != currentBiome) continue;
+                
                 if (plant is TreeBuff treeBuff)
                 {
                     var obj = Instantiate(elementTreeBuffPrefab, parent);
@@ -56,15 +70,13 @@ namespace UI.Plant
 
         public void SpawnBiomeElement()
         {
-            Debug.Log("Preparing Spawning PreFabs");
             foreach (var biome in Enum.GetValues(typeof(BiomeType)))
             {
-                Debug.Log("spawning");
                 if (biome is not BiomeType biomeType) continue;
                 if (biomeType == BiomeType.None) continue;
                 var obj = Instantiate(elementBiome, biomeParent);
                 var biomeElement = obj.GetComponent<BiomeUIElement>();
-                biomeElement.Display(biomeType);
+                biomeElement.Display(biomeType, this, currentTile);
                 spawnedElement.Add(obj);
             }
         }

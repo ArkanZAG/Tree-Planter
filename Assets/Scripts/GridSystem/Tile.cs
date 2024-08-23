@@ -66,7 +66,6 @@ namespace GridSystem
 
         public void SetBiome(BiomeType biome)
         {
-            
             //TODO: CHANGE VISUAL HERE BASED ON BIOME
         }
     }
