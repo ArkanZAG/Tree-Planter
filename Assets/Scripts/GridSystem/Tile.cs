@@ -52,12 +52,19 @@ namespace GridSystem
         public void SetPlant(IPlant plant, bool invokeUpdate = true)
         {
             currentPlant = plant;
+            currentPlant.OnPlantUpdated += OnCurrentPlantUpdated;
             SetBiome(currentPlant.Biome);
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }
 
+        private void OnCurrentPlantUpdated()
+        {
+            OnTileUpdated?.Invoke();
+        }
+
         public void RemovePlant(bool invokeUpdate = true)
         {
+            currentPlant.OnPlantUpdated -= OnCurrentPlantUpdated;
             Destroy(currentPlant.GameObject);
             currentPlant = null;
             

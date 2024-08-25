@@ -89,6 +89,18 @@ namespace Controller
             tile.SetPlant(iPlant, invokeUpdate);
         }
 
+        public void GenerateAllPassive()
+        {
+            foreach (var tileArray in spawnedTile)
+            {
+                foreach (var tile in tileArray)
+                {
+                    if (tile.CurrentPlant is not TreePassive treePassive) continue;
+                    treePassive.TapGenerate();
+                }
+            }
+        }
+
         private IEnumerable<Tile> GetNeighbours(int x, int y)
         {
             var tiles = new List<Tile>();

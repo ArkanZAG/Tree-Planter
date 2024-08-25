@@ -62,7 +62,7 @@ namespace UI.Plant
                 {
                     var obj = Instantiate(elementTreePassivePrefab, parent);
                     var treePassiveElement = obj.GetComponent<PlantUIElementTreePassive>();
-                    treePassiveElement.Display(treePassive, uiController, gridController, tile, gameController);
+                    treePassiveElement.Display(treePassive, uiController, gridController, tile, gameController, this);
                     spawnedElement.Add(obj);
                 }
             }

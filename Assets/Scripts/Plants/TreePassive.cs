@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Controller;
 using Data;
 using GridSystem;
+using UI.Plant;
 using UnityEngine;
 
 namespace Plants
@@ -12,6 +13,7 @@ namespace Plants
         public GameObject GameObject => gameObject;
         public Tile Tile => currentTile;
         public BiomeType Biome => biomeType;
+        public event Action OnPlantUpdated;
         public string Id => prefabId;
         [SerializeField] private string prefabId;
         [SerializeField] private BiomeType biomeType;
@@ -42,18 +44,22 @@ namespace Plants
 
         private GameController game;
         private EffectsController effects;
+        private PlantUIElementTreePassive uIElementTreePassive;
+        private GridController gridController;
 
         public int BaseOxygen => baseOxygen;
         public float BaseSpeed => baseSpeed;
         public int BaseTapOxygen => baseTapOxygen;
         public int BasePrice => basePrice;
         
-        public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController, EffectsController effectsController)
+        public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridCtrl, EffectsController effectsController)
         {
             currentTile = tile;
             currentNeighbours = neighbours;
             game = gameController;
             effects = effectsController;
+            gridController = gridCtrl;
+            
             initialized = true;
 
             foreach (var neighbour in neighbours)
@@ -63,6 +69,11 @@ namespace Plants
         }
         
         public void OnClick()
+        {
+            gridController.GenerateAllPassive();
+        }
+
+        public void TapGenerate()
         {
             if (!initialized) return;
             var oxygenGeneration = GetTapOxygenGeneration();
@@ -139,16 +150,16 @@ namespace Plants
             => baseSpeed + (generationLevel * speedPerGenerationLevel) + totalSpeedBonus;
         
         public int GetPassiveOxygenGeneration()
-            => Mathf.RoundToInt(baseOxygen * (1 + treeLevel * 0.5f)) + totalOxygenBonus;
+            => Mathf.RoundToInt(baseOxygen * (1 + treeLevel * 0.4f)) + totalOxygenBonus;
         
         private int GetTapOxygenGeneration()
-            => Mathf.RoundToInt(baseTapOxygen + (1 + tapLevel * 0.2f));
+            => Mathf.RoundToInt(baseTapOxygen + (1 + tapLevel * 0.5f));
 
         private int GetTreeLevelUpgradeCost()
             => Mathf.RoundToInt(GetPassiveOxygenGeneration() * (treeLevel / 2f));
 
         private int GetGenLevelUpgradeCost()
-            => Mathf.RoundToInt(50 + Mathf.Pow(generationLevel, 1.2f));
+            => Mathf.RoundToInt(50 + Mathf.Pow(generationLevel, 1.8f));
 
         private int GetTapLevelUpgradeCost()
             => Mathf.RoundToInt(GetTapOxygenGeneration() * (tapLevel / 2f));
@@ -170,9 +181,22 @@ namespace Plants
         public int GetTreeLevel() => treeLevel;
         public int GetGenerationLevel() => generationLevel;
         public int GetTapLevel() => tapLevel;
-        private void OnTreeLevelUpgrade() => treeLevel++;
-        private void OnGenLevelUpgrade() => generationLevel++;
-        private void OnTapLevelUpgrade() => tapLevel++;
+
+        private void OnTreeLevelUpgrade()
+        {
+            treeLevel++;
+            OnPlantUpdated?.Invoke();
+        } 
+        private void OnGenLevelUpgrade() 
+        {
+            generationLevel++;
+            OnPlantUpdated?.Invoke();
+        }
+        private void OnTapLevelUpgrade()
+        {
+            tapLevel++;
+            OnPlantUpdated?.Invoke();
+        } 
 
         #endregion
     }

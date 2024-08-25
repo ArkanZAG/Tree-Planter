@@ -10,6 +10,7 @@ public class AchievementUIElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI progressionNumber;
     [SerializeField] private Slider slider;
     [SerializeField] private Button button;
+    
     public void Display()
     {
         

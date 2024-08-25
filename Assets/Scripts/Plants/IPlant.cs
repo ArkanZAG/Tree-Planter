@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Controller;
 using Data;
 using GridSystem;
@@ -11,6 +12,7 @@ namespace Plants
         public GameObject GameObject { get; }
         public Tile Tile { get; }
         public BiomeType Biome { get; }
+        public event Action OnPlantUpdated;
         public string Id { get; }
         
         public void Initialize(Tile tile, Tile[] neighbours, GameController gameController, GridController gridController, EffectsController effectsController);

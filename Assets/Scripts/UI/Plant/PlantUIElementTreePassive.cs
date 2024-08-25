@@ -18,12 +18,17 @@ namespace UI.Plant
         [SerializeField] private RenderImage renderImage;
         [SerializeField] private Button button;
 
+        private int currentPlantedPlant;
+        private int plantedPlant;
+        public int PlantedPlant => plantedPlant;
+
         private UIController uiController;
         private GridController gridController;
         private GameObject prefab;
         private Tile tile;
         private TreePassive tree;
         private GameController gameController;
+        private PlantUI plantUI;
 
         private void Awake()
         {
@@ -40,7 +45,7 @@ namespace UI.Plant
             }
         }
 
-        public void Display(TreePassive treePassive, UIController ui, GridController grid, Tile injectTile, GameController game)
+        public void Display(TreePassive treePassive, UIController ui, GridController grid, Tile injectTile, GameController game, PlantUI pUi)
         {
             prefab = treePassive.gameObject;
             gameController = game;
@@ -48,6 +53,7 @@ namespace UI.Plant
             uiController = ui;
             gridController = grid;
             tile = injectTile;
+            plantUI = pUi;
             
             Render(prefab);
             

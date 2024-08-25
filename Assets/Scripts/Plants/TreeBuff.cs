@@ -12,6 +12,7 @@ namespace Plants
         public GameObject GameObject => gameObject;
         public Tile Tile => currentTile;
         public BiomeType Biome => biomeType;
+        public event Action OnPlantUpdated;
         public string Id => prefabId;
         
         [SerializeField] private string prefabId;
@@ -94,11 +95,18 @@ namespace Plants
 
         private int GetOxygenLevel() => oxygenLevel;
         private int GetOxygenUpgradeCost() => Mathf.RoundToInt(Mathf.Pow(oxygenLevel, 1.2f));
-        private void OnOxygenUpgrade() => oxygenLevel++;
-
+        private void OnOxygenUpgrade()
+        {
+            oxygenLevel++;
+            OnPlantUpdated?.Invoke();
+        }
         private int GetSpeedLevel() => speedLevel;
         private int GetSpeedUpgradeCost() => Mathf.RoundToInt(Mathf.Pow(speedLevel, 1.2f));
-        private void OnSpeedUpgrade() => speedLevel++;
+        private void OnSpeedUpgrade()
+        {
+            speedLevel++;
+            OnPlantUpdated?.Invoke();
+        } 
 
         #endregion
     }
