@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Achievements;
 using Data;
 using Plants;
 using Save;
@@ -26,6 +27,7 @@ namespace Controller
         private void Start()
         {
             plantDataBase.Initialize();
+            Achievement.Initialize();
             
             if (SaveSystem.HasSaveData())
             {

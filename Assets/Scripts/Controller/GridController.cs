@@ -17,6 +17,7 @@ namespace Controller
         [SerializeField] private PlantDatabase plantDataBase;
         [SerializeField] private GameController gameController;
         [SerializeField] private EffectsController effectsController;
+        [SerializeField] private AchievementUI achievementUI;
     
         private Tile[][] spawnedTile;
         private Tile currentTile = null;

@@ -6,11 +6,16 @@ namespace Achievements.Definitions
     [CreateAssetMenu(menuName = "Achievements/FinishLevels")]
     public class FinishLevels : AchievementDefinition
     {
-        [SerializeField] private int levelCount;
-
         public override bool IsCompleted(GameController game, GridController grid)
         {
-            return game.GetFinishedLevelCount() >= levelCount;
+            return game.GetFinishedLevelCount() >= goals;
         }
+
+        public override int GetProgress(GameController game, GridController grid)
+        {
+            return game.GetFinishedLevelCount();
+        }
+        
+        public override string AchievementTitle => $"Finish {goals} Leves";
     }
 }

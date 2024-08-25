@@ -6,11 +6,16 @@ namespace Achievements.Definitions
     [CreateAssetMenu(menuName = "Achievements/PlantTrees")]
     public class PlantTrees : AchievementDefinition
     {
-        [SerializeField] private int plantTreeCount;
-        
         public override bool IsCompleted(GameController game, GridController grid)
         {
-            return game.GetTotalPlantCount() >= plantTreeCount;
+            return game.GetTotalPlantCount() >= goals;
         }
+
+        public override int GetProgress(GameController game, GridController grid)
+        {
+            return game.GetTotalPlantCount();
+        }
+
+        public override string AchievementTitle => $"Plant {goals} Trees";
     }
 }

@@ -38,7 +38,6 @@ namespace UI.Upgrade
                 uiUpgradeElement.Display(upgradeDefintion, gameController);
                 spawnedElement.Add(obj);
             }
-            
         }
 
         public void RemovePlant()
