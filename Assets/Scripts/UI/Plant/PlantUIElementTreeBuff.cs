@@ -17,6 +17,11 @@ namespace UI.Plant
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private RenderImage renderImage;
         [SerializeField] private Button button;
+        [SerializeField] private Image iconImage;
+
+        [SerializeField] private Sprite oxygenSprite;
+        [SerializeField] private Sprite speedSprite;
+        
         
         private GridController gridController;
         private UIController uiController;
@@ -44,12 +49,14 @@ namespace UI.Plant
             if (buff.BaseOxygenBuff != 0)
             {
                 var oxygen = buff.BaseOxygenBuff;
-                buffText.text = $"{oxygen} / s";
+                buffText.text = $"{oxygen}/s";
+                iconImage.sprite = oxygenSprite;
             }
             else if (buff.BaseSpeedBuff != 0)
             {
                 var speed = buff.BaseSpeedBuff;
-                buffText.text = $"{speed} / s";
+                buffText.text = $"{speed}/s";
+                iconImage.sprite = speedSprite;
             }
             priceText.text = buff.BasePrice.ToString();
         }

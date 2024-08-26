@@ -62,9 +62,9 @@ namespace UI.Plant
             var tap = treePassive.BaseTapOxygen;
             var price = treePassive.BasePrice;
             
-            oxygenText.text = $"{oxygen} / s";
-            speedText.text = $"{speed} s";
-            tapText.text = $"{tap} / tap";
+            oxygenText.text = $"{oxygen}/s";
+            speedText.text = $"{speed}s";
+            tapText.text = $"{tap}/tap";
             priceText.text = $"{price}";
         }
 
