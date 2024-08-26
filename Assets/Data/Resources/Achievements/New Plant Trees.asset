@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e229c52e9145d196196095afc60e29, type: 3}
   m_Name: New Plant Trees
   m_EditorClassIdentifier: 
-  id: 
-  oxygenReward: 0
-  goals: 0
+  id: 5eceee0b
+  oxygenReward: 10
+  goals: 5
