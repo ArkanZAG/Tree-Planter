@@ -16,8 +16,8 @@ namespace Controller
         [SerializeField] private float cameraSpeed = 3f;
         [SerializeField] private GameObject cameraAnchor, anchorOffset;
         [SerializeField] private GridController gridController;
-        //[SerializeField] private Slider zoomSlider;
-        //[SerializeField] private Toggle topDownToggle;
+        [SerializeField] private Slider zoomSlider;
+        [SerializeField] private Toggle topDownToggle;
         
         private float currentZoomAlpha = 0.5f;
         private float smoothAlpha;
@@ -31,18 +31,18 @@ namespace Controller
         {
                 mainTransposer = mainCamera.GetCinemachineComponent<CinemachineTransposer>();
                 topDownTransposer = topDownCamera.GetCinemachineComponent<CinemachineTransposer>();
-                //zoomSlider.onValueChanged.AddListener(f => currentZoomAlpha = Mathf.Clamp01(f));
+                zoomSlider.onValueChanged.AddListener(f => currentZoomAlpha = Mathf.Clamp01(f));
         }
         
         public void AddZoom(float f)
         {
                 currentZoomAlpha = Mathf.Clamp01(currentZoomAlpha + (f * zoomSpeed));
-                //zoomSlider.SetValueWithoutNotify(currentZoomAlpha);
+                zoomSlider.SetValueWithoutNotify(currentZoomAlpha);
         }
         
         public void Update()
         {
-                //topDownCamera.Priority = topDownToggle.isOn ? 99 : 0;
+                topDownCamera.Priority = topDownToggle.isOn ? 99 : 0;
                 
                 ProcessAnchorOffset();
                 ProcessZoom();

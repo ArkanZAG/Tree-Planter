@@ -17,7 +17,7 @@ namespace Controller
         [Header("Interaction Settings")]
         [SerializeField] private float minDragDistance = 10f;
         [SerializeField] private float zoomPinchModifier = 1f;
-        //[SerializeField] private Toggle topDownToggle;
+        [SerializeField] private Toggle topDownToggle;
 
         private Camera camera;
         private bool canStartDragging;
