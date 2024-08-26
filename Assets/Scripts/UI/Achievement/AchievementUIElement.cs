@@ -20,6 +20,7 @@ public class AchievementUIElement : MonoBehaviour
 
     private AchievementDefinition achievementDefinition;
     private GameController gameController;
+    private GridController gridController;
 
     private void Awake()
     {
@@ -31,25 +32,39 @@ public class AchievementUIElement : MonoBehaviour
     {
         gameController = gameCont;
         achievementDefinition = achievementDef;
+        gridController = grid;
         achievementTitle.text = achievementDef.AchievementTitle;
-        var goal = achievementDef.Goals;
-        progressionText.text = $" {achievementDef.GetProgress(gameCont,grid)} / {goal}";
         rewardText.text = achievementDef.OxygenReward.ToString();
+        UpdateStatus();
+        grid.OnTilesUpdated += OnTilesUpdated;
+    }
+    private void OnTilesUpdated()
+    {
+        UpdateStatus();
+    }
+    private void UpdateStatus()
+    {
+        var goal = achievementDefinition.Goals;
+        float progress = achievementDefinition.GetProgress(gameController, gridController);
+        progressionText.text = $" {progress} / {goal}";
+        slider.value = progress / goal;
+        button.interactable = progress >= goal;
+        if (gameController.HasClaimedAchievement(achievementDefinition.Id))
+        {
+            rewardText.text = "Completed";
+            button.interactable = false;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        gridController.OnTilesUpdated -= OnTilesUpdated;
     }
 
     public void OnClick()
     {
-        if (currentProgressionNumber <= achievementDefinition.Goals)
-        {
-            gameController.AddOxygen(achievementDefinition.OxygenReward);
-        }
-    }
-
-    private void Update()
-    {
-        if (currentProgressionNumber <= achievementDefinition.Goals)
-        {
-            button.interactable = true;
-        }
+        gameController.AddOxygen(achievementDefinition.OxygenReward);
+        gameController.ClaimAchievement(achievementDefinition.Id);
+        UpdateStatus();
     }
 }

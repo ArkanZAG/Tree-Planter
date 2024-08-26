@@ -8,12 +8,6 @@ namespace Achievements.Definitions
     public class BiomeInSingleLevel : AchievementDefinition
     {
         [SerializeField] private BiomeType biome;
-        
-        public override bool IsCompleted(GameController game, GridController grid)
-        {
-            return grid.GetPlantCount(biome) >= goals;
-        }
-
         public override int GetProgress(GameController game, GridController grid)
         {
             return grid.GetPlantCount(biome);

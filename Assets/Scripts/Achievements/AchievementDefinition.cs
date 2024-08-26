@@ -21,8 +21,7 @@ namespace Achievements
         {
             if (string.IsNullOrEmpty(id)) id = ShortUid.New();
         }
-
-        public abstract bool IsCompleted(GameController game, GridController grid);
+        
         public abstract int GetProgress(GameController game, GridController grid);
     }
 }
