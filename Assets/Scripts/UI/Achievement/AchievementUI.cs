@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Achievements;
 using Controller;
 using Unity.VisualScripting;
@@ -23,9 +24,12 @@ public class AchievementUI : MonoBehaviour
 
     public void Display()
     {
-        holder.SetActive(true);
+        holder.SetActive(true); 
         ClearElements();
-        foreach (var achievement in Achievement.GetAll())
+        // Di sini kita sort order achievement berdasarkan HasClaimedAchievement, kalau false dia di atas, kalau true di bawah
+        var allAchievement = Achievement.GetAll()
+            .OrderBy(x => gameController.HasClaimedAchievement(x.Id));
+        foreach (var achievement in allAchievement)
         {
             var obj = Instantiate(elementPrefabs, parent);
             var achievementElement = obj.GetComponent<AchievementUIElement>();
@@ -33,7 +37,6 @@ public class AchievementUI : MonoBehaviour
             spawnedObject.Add(obj);
         }
     }
-
     private void ClearElements()
     {
         for (int i = 0; i < spawnedObject.Count; i++)

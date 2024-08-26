@@ -91,7 +91,11 @@ namespace Controller
             return total;
         }
 
-        public bool HasAchieved(string id) => playerData.completedAchievements.Contains(id);
-        public void AddAchievement(string id) => playerData.completedAchievements.Add(id);
+        public bool HasClaimedAchievement(string id) => playerData.completedAchievements.Contains(id);
+        public void ClaimAchievement(string id)
+        { 
+            playerData.completedAchievements.Add(id);
+            SaveProgress();
+        } 
     }
 }
