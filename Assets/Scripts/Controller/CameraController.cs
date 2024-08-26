@@ -73,7 +73,7 @@ namespace Controller
                 pos.x -= delta.x * mod;
                 pos.z -= delta.y * mod;
         
-                var size = gridController.startPos * 1.5f;
+                var size = gridController.StartPos * 1.5f;
                 pos.x = Mathf.Clamp(pos.x, size.x, -size.x);
                 pos.z = Mathf.Clamp(pos.z, size.z, -size.z);
         

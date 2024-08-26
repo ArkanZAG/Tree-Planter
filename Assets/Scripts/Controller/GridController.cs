@@ -18,16 +18,19 @@ namespace Controller
         [SerializeField] private GameController gameController;
         [SerializeField] private EffectsController effectsController;
         [SerializeField] private AchievementUI achievementUI;
-    
+        private Vector3 startPos;
+
         private Tile[][] spawnedTile;
         private Tile currentTile = null;
 
         private int width, depth;
 
+        private Dictionary<BiomeType, int> biomeTileCount = new();
+
         public event Action OnTilesUpdated;
 
         public Tile SelectedTile => currentTile;
-        public Vector3 startPos;
+        public Vector3 StartPos => startPos;
 
         public void Generate(GridData data)
         {
@@ -59,6 +62,8 @@ namespace Controller
             grid.Generate(width, depth);
 
             SpawnPlants(data.plants);
+
+            EvaluatePlantCount();
             
             OnTilesUpdated?.Invoke();
         }
@@ -66,6 +71,9 @@ namespace Controller
         private void OnAnyTileUpdated()
         {
             OnTilesUpdated?.Invoke();
+
+            EvaluatePlantCount();
+
             gameController.SaveProgress();
         }
 
@@ -141,19 +149,27 @@ namespace Controller
             return total;
         }
 
-        public int GetPlantCount(BiomeType biome)
+        private void EvaluatePlantCount()
         {
-            var total = 0;
-            
+            biomeTileCount = new();
             foreach (var tileArray in spawnedTile)
             foreach (var tile in tileArray)
             {
                 if (tile.CurrentPlant == null) continue;
-                if (tile.CurrentPlant.Biome != biome) continue;
-                total++;
+                if (tile.CurrentPlant.Biome == BiomeType.None) continue;
+                
+                var biome = tile.CurrentPlant.Biome;
+                
+                if (biomeTileCount.TryGetValue(biome, out var count)) biomeTileCount[biome] = count + 1;
+                else biomeTileCount[biome] = 0;
             }
+        }
 
-            return total;
+        public int GetPlantCount(BiomeType biome)
+        {
+            if (biomeTileCount.TryGetValue(biome, out var count)) return count;
+            
+            return 0;
         }
 
         public void SelectTile(Tile tile)

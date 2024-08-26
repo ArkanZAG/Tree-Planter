@@ -5,6 +5,7 @@ using Data;
 using GridSystem;
 using UI.Plant;
 using UnityEngine;
+using Utilities;
 
 namespace Plants
 {
@@ -146,14 +147,18 @@ namespace Plants
             }
         }
 
+        private int GetSavannaBonus() => gridController.GetPlantCount(BiomeType.Forest).FloorTo(10);
+        private float GetTundraBonus() => 1f + (0.1f * gridController.GetPlantCount(BiomeType.Forest).FloorTo(10));
+        private float GetForestBonus() => 1f + (0.1f * gridController.GetPlantCount(BiomeType.Forest).FloorTo(10));
+
         public float GetGenerationPerSecond()
-            => baseSpeed + (generationLevel * speedPerGenerationLevel) + totalSpeedBonus;
-        
+            => (baseSpeed + (generationLevel * speedPerGenerationLevel) + totalSpeedBonus) * GetTundraBonus();
+
         public int GetPassiveOxygenGeneration()
-            => Mathf.RoundToInt(baseOxygen * (1 + treeLevel * 0.4f)) + totalOxygenBonus;
+            => Mathf.RoundToInt((baseOxygen * (1 + treeLevel * 0.4f) + totalOxygenBonus) * GetForestBonus()) ;
         
         private int GetTapOxygenGeneration()
-            => Mathf.RoundToInt(baseTapOxygen + (1 + tapLevel * 0.5f));
+            => Mathf.RoundToInt(baseTapOxygen + (1 + tapLevel * 0.5f)) + GetSavannaBonus();
 
         private int GetTreeLevelUpgradeCost()
             => Mathf.RoundToInt(GetPassiveOxygenGeneration() * (treeLevel / 2f));
