@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: a0b0ae59f0c014ed381d6cfef6aee28d, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -139,7 +139,6 @@ MonoBehaviour:
   tundraBiomeSprite: {fileID: 21300000, guid: 87958aac51a75024eb1de12bddeceff6, type: 3}
   button: {fileID: 5996635742113520714}
   plantDataBase: {fileID: 11400000, guid: 32be6599e90457b4a93d637ac9bb1cfe, type: 2}
-  plantUi: {fileID: 0}
   image: {fileID: 3161234381898648433}
 --- !u!1 &8516173411510229353
 GameObject:
