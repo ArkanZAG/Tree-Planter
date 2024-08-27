@@ -62,7 +62,7 @@ namespace Controller
 
         private void RegisterNewGrid()
         {
-            var grid = new GridData(VERSION, defaultWidth, defaultDepth, Array.Empty<PlantData>(), false);
+            var grid = new GridData("Current",VERSION, defaultWidth, defaultDepth, Array.Empty<PlantData>(), false);
 
             var id = ShortUid.New();
 
@@ -73,11 +73,6 @@ namespace Controller
         public void AddOxygen(int value)
         {
             oxygen += value;
-        }
-
-        public int GetTotalLevel()
-        {
-            return playerData.grids.Count;
         }
 
         public GridData[] GetAllGridData()
