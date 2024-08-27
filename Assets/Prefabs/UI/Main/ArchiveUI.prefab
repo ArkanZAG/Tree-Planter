@@ -408,7 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elementUiPrefabs: {fileID: 0}
   holder: {fileID: 7565570662413597030}
-  parent: {fileID: 0}
+  parent: {fileID: 3860753088649991625}
   gameController: {fileID: 0}
   gridController: {fileID: 0}
 --- !u!1 &4565126609939289266
