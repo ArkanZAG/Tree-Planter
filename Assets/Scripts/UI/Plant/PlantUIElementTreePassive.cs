@@ -17,6 +17,7 @@ namespace UI.Plant
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private RenderImage renderImage;
         [SerializeField] private Button button;
+        [SerializeField] private AudioClip audioClip;
 
         private int currentPlantedPlant;
         private int plantedPlant;
@@ -28,6 +29,7 @@ namespace UI.Plant
         private Tile tile;
         private TreePassive tree;
         private GameController gameController;
+        private SoundController soundController;
         private PlantUI plantUI;
 
         private void Awake()
@@ -42,10 +44,12 @@ namespace UI.Plant
                 gridController.PlantToTile(prefab, tile);
                 uiController.HideTray();
                 gameController.AddOxygen(-tree.BasePrice);
+                soundController.PlaySfx(audioClip);
             }
         }
 
-        public void Display(TreePassive treePassive, UIController ui, GridController grid, Tile injectTile, GameController game, PlantUI pUi)
+        public void Display(TreePassive treePassive, UIController ui, GridController grid, Tile injectTile, GameController game,
+            PlantUI pUi, SoundController soundCont)
         {
             prefab = treePassive.gameObject;
             gameController = game;
@@ -53,6 +57,7 @@ namespace UI.Plant
             uiController = ui;
             gridController = grid;
             tile = injectTile;
+            soundController = soundCont;
             plantUI = pUi;
             
             Render(prefab);

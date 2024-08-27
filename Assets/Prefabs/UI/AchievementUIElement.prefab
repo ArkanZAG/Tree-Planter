@@ -271,6 +271,8 @@ MonoBehaviour:
   rewardText: {fileID: 1037735581125712197}
   slider: {fileID: 8498559546036729010}
   button: {fileID: 4530505498005371883}
+  audioClipAchievementComplete: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c,
+    type: 3}
   currentProgressionNumber: 0
 --- !u!1 &2108390985800575189
 GameObject:

@@ -4,6 +4,7 @@ using Controller;
 using GridSystem;
 using Plants;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Upgrade
@@ -16,6 +17,8 @@ namespace UI.Upgrade
         [SerializeField] private Transform parent;
         [SerializeField] private UIController uiController;
         [SerializeField] private GameController gameController;
+        [SerializeField] private SoundController soundController;
+        [SerializeField] private AudioClip audioClipRemovePlant;
 
         private List<GameObject> spawnedElement = new();
 
@@ -35,13 +38,14 @@ namespace UI.Upgrade
             {
                 var obj = Instantiate(upgradeElementUIPrefabs, parent);
                 var uiUpgradeElement = obj.GetComponent<UpgradeUIElement>();
-                uiUpgradeElement.Display(upgradeDefintion, gameController);
+                uiUpgradeElement.Display(upgradeDefintion, gameController, soundController);
                 spawnedElement.Add(obj);
             }
         }
 
         public void RemovePlant()
         {
+            soundController.PlaySfx(audioClipRemovePlant);
             tile.RemovePlant();
             uiController.HideTray();
         }

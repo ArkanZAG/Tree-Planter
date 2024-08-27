@@ -17,6 +17,9 @@ public class AchievementUI : MonoBehaviour
 
     [SerializeField] private GameController gameController;
     [SerializeField] private GridController gridController;
+    [SerializeField] private SoundController soundController;
+
+    [SerializeField] private AudioClip openUiAudioClip;
 
     private bool isShowing = false;
 
@@ -24,6 +27,7 @@ public class AchievementUI : MonoBehaviour
 
     public void Display()
     {
+        soundController.PlaySfx(openUiAudioClip);
         holder.SetActive(true); 
         ClearElements();
         // Di sini kita sort order achievement berdasarkan HasClaimedAchievement, kalau false dia di atas, kalau true di bawah
@@ -33,7 +37,7 @@ public class AchievementUI : MonoBehaviour
         {
             var obj = Instantiate(elementPrefabs, parent);
             var achievementElement = obj.GetComponent<AchievementUIElement>();
-            achievementElement.Display(achievement,gameController,gridController);
+            achievementElement.Display(achievement,gameController,gridController, soundController);
             spawnedObject.Add(obj);
         }
     }

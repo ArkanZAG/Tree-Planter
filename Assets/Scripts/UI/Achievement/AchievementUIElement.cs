@@ -15,12 +15,14 @@ public class AchievementUIElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rewardText;
     [SerializeField] private Slider slider;
     [SerializeField] private Button button;
+    [FormerlySerializedAs("AudioClipAchievementComplete")] [SerializeField] private AudioClip audioClipAchievementComplete;
     
     [SerializeField] private int currentProgressionNumber;
 
     private AchievementDefinition achievementDefinition;
     private GameController gameController;
     private GridController gridController;
+    private SoundController soundController;
 
     private void Awake()
     {
@@ -28,11 +30,13 @@ public class AchievementUIElement : MonoBehaviour
         button.interactable = false;
     }
 
-    public void Display(AchievementDefinition achievementDef, GameController gameCont, GridController grid)
+    public void Display(AchievementDefinition achievementDef, GameController gameCont, GridController grid,
+        SoundController soundCont)
     {
         gameController = gameCont;
         achievementDefinition = achievementDef;
         gridController = grid;
+        soundController = soundCont;
         achievementTitle.text = achievementDef.AchievementTitle;
         rewardText.text = achievementDef.OxygenReward.ToString();
         UpdateStatus();
@@ -65,6 +69,7 @@ public class AchievementUIElement : MonoBehaviour
     {
         gameController.AddOxygen(achievementDefinition.OxygenReward);
         gameController.ClaimAchievement(achievementDefinition.Id);
+        soundController.PlaySfx(audioClipAchievementComplete);
         UpdateStatus();
     }
 }

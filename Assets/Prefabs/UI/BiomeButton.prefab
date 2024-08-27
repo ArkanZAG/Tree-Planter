@@ -134,7 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d95aa30712b4026935c0e32286e2f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Image: {fileID: 3380288589942917227}
+  forestBiomeSprite: {fileID: 0}
+  savannaBiomeSprite: {fileID: 0}
+  tundraBiomeSprite: {fileID: 0}
+  button: {fileID: 0}
+  plantDataBase: {fileID: 0}
+  image: {fileID: 0}
 --- !u!1 &8671932883218223921
 GameObject:
   m_ObjectHideFlags: 0

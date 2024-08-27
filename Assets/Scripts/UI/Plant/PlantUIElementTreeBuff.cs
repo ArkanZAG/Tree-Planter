@@ -19,6 +19,8 @@ namespace UI.Plant
         [SerializeField] private Button button;
         [SerializeField] private Image iconImage;
 
+        [SerializeField] private AudioClip audioClipPlantTrees;
+
         [SerializeField] private Sprite oxygenSprite;
         [SerializeField] private Sprite speedSprite;
         
@@ -29,19 +31,21 @@ namespace UI.Plant
         private Tile tile;
         private TreeBuff tree;
         private GameController gameController;
+        private SoundController soundController;
 
         private void Awake()
         {
             button.onClick.AddListener(OnClick);
         }
 
-        public void Display(TreeBuff buff, UIController ui, GridController grid, Tile injectTile, GameController game)
+        public void Display(TreeBuff buff, UIController ui, GridController grid, Tile injectTile, GameController game, SoundController soundCont)
         {
             tree = buff;
             gameController = game;
             uiController = ui;
             gridController = grid;
             tile = injectTile;
+            soundController = soundCont;
             prefab = buff.gameObject;
             
             Render(prefab);
@@ -74,6 +78,7 @@ namespace UI.Plant
                 gridController.PlantToTile(prefab, tile);
                 uiController.HideTray();
                 gameController.AddOxygen(-tree.BasePrice);
+                soundController.PlaySfx(audioClipPlantTrees);
             }
             
         }

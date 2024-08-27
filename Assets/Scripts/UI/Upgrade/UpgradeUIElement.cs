@@ -12,21 +12,24 @@ namespace UI.Upgrade
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private TextMeshProUGUI titleText;
+        [SerializeField] private AudioClip audioClip;
 
         [SerializeField] private Button button;
         
         private UpgradeDefinition upgradeDefinition;
         private GameController gameController;
+        private SoundController soundController;
 
         private void Awake()
         {
             button.onClick.AddListener(OnClick);
         }
 
-        public void Display(UpgradeDefinition upgrade, GameController game)
+        public void Display(UpgradeDefinition upgrade, GameController game, SoundController soundCont)
         {
             upgradeDefinition = upgrade;
             gameController = game;
+            soundController = soundCont;
 
             levelText.text = upgrade.getCurrentLevel.Invoke().ToString();
             priceText.text = upgrade.getCurrentCost.Invoke().ToString();
@@ -40,8 +43,9 @@ namespace UI.Upgrade
             
             if (gameController.Oxygen >= cost)
             {
+                soundController.PlaySfx(audioClip);
                 upgradeDefinition.OnUpgraded?.Invoke();
-                Display(upgradeDefinition, gameController);
+                Display(upgradeDefinition, gameController,soundController);
                 gameController.AddOxygen(-cost);
             }
             

@@ -912,6 +912,7 @@ MonoBehaviour:
   priceText: {fileID: 6383450357520342755}
   renderImage: {fileID: 486655216750742971}
   button: {fileID: 7507434587175222349}
+  audioClip: {fileID: 8300000, guid: 157a5d6c3b484bf4fab36f3a9bbe24ea, type: 3}
 --- !u!114 &6383450357520342755 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1037735581125712197, guid: 6dfe282231c4f6949bfd2143598eb982,

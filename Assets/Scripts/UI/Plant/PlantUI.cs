@@ -26,6 +26,7 @@ namespace UI.Plant
         [SerializeField] private GridController gridController;
         [SerializeField] private UIController uiController;
         [SerializeField] private GameController gameController;
+        [SerializeField] private SoundController soundController;
 
         private BiomeType currentBiome = BiomeType.Forest;
         private Tile currentTile;
@@ -57,14 +58,14 @@ namespace UI.Plant
                 {
                     var obj = Instantiate(elementTreeBuffPrefab, parent);
                     var treeBuffElement = obj.GetComponent<PlantUIElementTreeBuff>();
-                    treeBuffElement.Display(treeBuff, uiController, gridController, tile, gameController);
+                    treeBuffElement.Display(treeBuff, uiController, gridController, tile, gameController, soundController);
                     spawnedElement.Add(obj);
                 }
                 else if (plant is TreePassive treePassive)
                 {
                     var obj = Instantiate(elementTreePassivePrefab, parent);
                     var treePassiveElement = obj.GetComponent<PlantUIElementTreePassive>();
-                    treePassiveElement.Display(treePassive, uiController, gridController, tile, gameController, this);
+                    treePassiveElement.Display(treePassive, uiController, gridController, tile, gameController, this, soundController);
                     spawnedElement.Add(obj);
                 }
             }

@@ -605,6 +605,7 @@ MonoBehaviour:
   renderImage: {fileID: 9162705784780955473}
   button: {fileID: 1281073919499087527}
   iconImage: {fileID: 8795444049525900032}
+  audioClipPlantTrees: {fileID: 8300000, guid: 157a5d6c3b484bf4fab36f3a9bbe24ea, type: 3}
   oxygenSprite: {fileID: 21300000, guid: ffdd900f4611841bfbbbf8a77c0214e0, type: 3}
   speedSprite: {fileID: 21300000, guid: e07c16cced13542f59c7400aff52d8a7, type: 3}
 --- !u!224 &7087443479276763559 stripped
