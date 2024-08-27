@@ -40,7 +40,7 @@ namespace Controller
             plantDataBase.Initialize();
             biomeDatabase.Initialize();
             Achievement.Initialize();
-            soundController.PlayBgm(audioClipBGM);
+            soundController.PlayBgm(audioClipBGM, 0.6f);
             
             if (SaveSystem.HasSaveData())
             {
