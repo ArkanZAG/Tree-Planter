@@ -573,6 +573,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArchiveUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3649364374806792963, guid: 6e83765fd39751644bcf5bbcc01c6f61,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649364374806792963, guid: 6e83765fd39751644bcf5bbcc01c6f61,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649364374806792963, guid: 6e83765fd39751644bcf5bbcc01c6f61,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3860753088649991625, guid: 6e83765fd39751644bcf5bbcc01c6f61,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -715,6 +730,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 342220145}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &342220147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7549039637430120149, guid: 6e83765fd39751644bcf5bbcc01c6f61,
+    type: 3}
+  m_PrefabInstance: {fileID: 342220145}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c935812f870d84d9535ae44d8e1f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &359676755 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4587794205378726837, guid: f7c53b595eada6747aef05bc024941e5,
@@ -1412,6 +1439,7 @@ MonoBehaviour:
   defaultDepth: 10
   gridController: {fileID: 1938386791}
   plantDataBase: {fileID: 11400000, guid: 32be6599e90457b4a93d637ac9bb1cfe, type: 2}
+  biomeDatabase: {fileID: 11400000, guid: 9b5c8e73ae325cc4baf59495f73ed286, type: 2}
   oxygen: 5000
   noticePopup: {fileID: 6063236674111251575}
 --- !u!4 &1396357482
@@ -1892,6 +1920,7 @@ MonoBehaviour:
     type: 3}
   grid: {fileID: 1212923209}
   plantDataBase: {fileID: 11400000, guid: 32be6599e90457b4a93d637ac9bb1cfe, type: 2}
+  biomeDataBase: {fileID: 11400000, guid: 9b5c8e73ae325cc4baf59495f73ed286, type: 2}
   gameController: {fileID: 1396357481}
   effectsController: {fileID: 595070198}
   achievementUI: {fileID: 901082397}
@@ -2642,7 +2671,7 @@ MonoBehaviour:
   plantUI: {fileID: 1496771856}
   upgradeUI: {fileID: 9117766045582702169}
   achievementUI: {fileID: 901082397}
-  archiveUI: {fileID: 0}
+  archiveUI: {fileID: 342220147}
   achievementsButton: {fileID: 933868249}
   archiveButton: {fileID: 0}
 --- !u!1001 &3276158061048116894
