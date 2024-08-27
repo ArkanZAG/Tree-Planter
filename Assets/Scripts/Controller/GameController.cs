@@ -7,6 +7,7 @@ using Biomes;
 using Data;
 using Plants;
 using Save;
+using UI.FinishArchive;
 using UI.Notice;
 using UnityEngine;
 using Utilities;
@@ -25,6 +26,7 @@ namespace Controller
         [SerializeField] private BiomeDatabase biomeDatabase;
         [SerializeField] private int oxygen;
         [SerializeField] private NoticePopup noticePopup;
+        [SerializeField] private FinishArchivePopup finishArchivePopup;
         
         private PlayerData playerData;
 
@@ -51,10 +53,31 @@ namespace Controller
 
             var gridToLoad = playerData.grids[playerData.currentGridId];
             gridController.Generate(gridToLoad);
+
+            gridController.OnTilesUpdated += OnTilesUpdated;
             
-            SimulateIdleTime();
+            if (gridController.IsGridCompleted()) finishArchivePopup.Display(OnFinishArchiveSubmit);
+            else SimulateIdleTime();
             
             hasGameStarted = true;
+        }
+
+        private void OnTilesUpdated()
+        {
+            if (!gridController.IsGridCompleted()) return;
+            finishArchivePopup.Display(OnFinishArchiveSubmit);
+        }
+
+        private void OnFinishArchiveSubmit(string levelName)
+        {
+           var currentGrid = gridController.GetCurrentAsData(VERSION);
+           currentGrid.name = levelName;
+           playerData.grids[playerData.currentGridId] = currentGrid;
+           
+           RegisterNewGrid();
+           
+           var gridToLoad = playerData.grids[playerData.currentGridId];
+           gridController.Generate(gridToLoad);
         }
 
         private PlayerData CreateEmptyStartingData()

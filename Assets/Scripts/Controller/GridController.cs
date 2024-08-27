@@ -196,7 +196,7 @@ namespace Controller
             currentTile = null;
         }
 
-        private bool IsGridCompleted()
+        public bool IsGridCompleted()
         {
             foreach (var tiles in spawnedTile)
             foreach (var tile in tiles)

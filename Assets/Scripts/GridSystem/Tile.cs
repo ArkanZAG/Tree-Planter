@@ -47,6 +47,7 @@ namespace GridSystem
 
         public void Initialize(BiomeDatabase biomeDb, int newX, int newY)
         {
+            biomeDatabase = biomeDb;
             x = newX;
             y = newY;
         }
