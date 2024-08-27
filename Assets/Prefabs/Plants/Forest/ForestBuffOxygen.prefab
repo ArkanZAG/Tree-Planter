@@ -156,6 +156,9 @@ MonoBehaviour:
   baseOxygenBuff: 1
   baseSpeedBuff: 0
   basePrice: 100
+  maxOxygenLevel: 100
+  maxSpeedLevel: 100
+  bonusSpeedPerLevel: 0.1
 --- !u!114 &4550313496061409226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,5 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316fcbceaa3848fcb8210da8d29162f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionOffset: {x: 0, y: 3, z: -12}
-  rotationOffset: {x: 0, y: 0, z: 0}
+  positionOffset: {x: 0, y: 5, z: -12}
+  rotationOffset: {x: -3.5, y: 0, z: 0}
