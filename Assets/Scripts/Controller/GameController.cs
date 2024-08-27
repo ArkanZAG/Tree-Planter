@@ -72,6 +72,12 @@ namespace Controller
             oxygen += value;
         }
 
+        public int GetTotalLevel()
+        {
+            return playerData.grids.Count;
+            
+        }
+
         public void SaveProgress()
         {
             playerData.oxygen = oxygen;

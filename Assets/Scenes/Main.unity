@@ -1849,6 +1849,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6368966543880394034, guid: dd61c740b66fa1a4b985cdcf02a5c71d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6581957258303301902, guid: dd61c740b66fa1a4b985cdcf02a5c71d,
         type: 3}
       propertyPath: uiController
@@ -2147,10 +2152,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.000061035156
       objectReference: {fileID: 0}
+    - target: {fileID: 6174845584649504221, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174845584649504221, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174845584649504221, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6620797922084377662, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724703415734366564, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7880606315483319667, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
         type: 3}
@@ -2445,6 +2470,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9081297874287150836, guid: f7c53b595eada6747aef05bc024941e5,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2468,6 +2498,11 @@ PrefabInstance:
       propertyPath: gridController
       value: 
       objectReference: {fileID: 1938386791}
+    - target: {fileID: 2831905513929954090, guid: b7384f18367634245a12c75cdd6091b6,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5369306998002645777, guid: b7384f18367634245a12c75cdd6091b6,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2613,6 +2648,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 79696559}
     m_Modifications:
+    - target: {fileID: 1569270945928439237, guid: b1a0fc834ad2b1a4b86091637e10a52d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2109853951213982137, guid: b1a0fc834ad2b1a4b86091637e10a52d,
         type: 3}
       propertyPath: m_SizeDelta.y
