@@ -715,10 +715,20 @@ PrefabInstance:
       objectReference: {fileID: 1938386791}
     - target: {fileID: 7549039637430120149, guid: 6e83765fd39751644bcf5bbcc01c6f61,
         type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 1755030729}
+    - target: {fileID: 7549039637430120149, guid: 6e83765fd39751644bcf5bbcc01c6f61,
+        type: 3}
       propertyPath: elementUiPrefabs
       value: 
       objectReference: {fileID: 5812660318663769099, guid: d7f0367f27627394c8163c367e4e8a77,
         type: 3}
+    - target: {fileID: 7549039637430120149, guid: 6e83765fd39751644bcf5bbcc01c6f61,
+        type: 3}
+      propertyPath: audioClipOpenArchiveUi
+      value: 
+      objectReference: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1454,6 +1464,8 @@ MonoBehaviour:
   biomeDatabase: {fileID: 11400000, guid: 9b5c8e73ae325cc4baf59495f73ed286, type: 2}
   oxygen: 5000
   noticePopup: {fileID: 6063236674111251575}
+  soundController: {fileID: 1755030729}
+  audioClipBGM: {fileID: 8300000, guid: 0eea6a2b3bcd65841a96db28970c2e43, type: 3}
 --- !u!4 &1396357482
 Transform:
   m_ObjectHideFlags: 0
@@ -2677,7 +2689,7 @@ PrefabInstance:
         type: 3}
       propertyPath: openUiAudioClip
       value: 
-      objectReference: {fileID: 8300000, guid: d8d04c6f80a1140db85ede568dab1f51, type: 3}
+      objectReference: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
     - target: {fileID: 7881397358729972241, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
         type: 3}
       propertyPath: soundController

@@ -3,6 +3,7 @@ using Controller;
 using Plants;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Upgrade
@@ -12,7 +13,7 @@ namespace UI.Upgrade
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private TextMeshProUGUI titleText;
-        [SerializeField] private AudioClip audioClip;
+        [SerializeField] private AudioClip audioClipUpgrade;
 
         [SerializeField] private Button button;
         
@@ -43,9 +44,10 @@ namespace UI.Upgrade
             
             if (gameController.Oxygen >= cost)
             {
-                soundController.PlaySfx(audioClip);
+                soundController.PlaySfx(audioClipUpgrade);
                 upgradeDefinition.OnUpgraded?.Invoke();
                 Display(upgradeDefinition, gameController,soundController);
+                soundController.PlaySfx(audioClipUpgrade);
                 gameController.AddOxygen(-cost);
             }
             

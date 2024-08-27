@@ -25,6 +25,8 @@ namespace Controller
         [SerializeField] private BiomeDatabase biomeDatabase;
         [SerializeField] private int oxygen;
         [SerializeField] private NoticePopup noticePopup;
+        [SerializeField] private SoundController soundController;
+        [SerializeField] private AudioClip audioClipBGM;
         
         private PlayerData playerData;
 
@@ -36,6 +38,7 @@ namespace Controller
             plantDataBase.Initialize();
             biomeDatabase.Initialize();
             Achievement.Initialize();
+            soundController.PlayBgm(audioClipBGM);
             
             if (SaveSystem.HasSaveData())
             {
