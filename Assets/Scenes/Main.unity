@@ -1268,7 +1268,7 @@ MonoBehaviour:
   defaultDepth: 10
   gridController: {fileID: 1938386791}
   plantDataBase: {fileID: 11400000, guid: 32be6599e90457b4a93d637ac9bb1cfe, type: 2}
-  oxygen: 500
+  oxygen: 5000
   noticePopup: {fileID: 6063236674111251575}
 --- !u!4 &1396357482
 Transform:

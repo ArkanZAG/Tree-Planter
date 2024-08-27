@@ -154,9 +154,9 @@ MonoBehaviour:
   prefabId: forest-passive-tap
   biomeType: 1
   baseOxygen: 10
-  baseSpeed: 3
-  baseTapOxygen: 10
-  basePrice: 100
+  baseSpeed: 0.3
+  baseTapOxygen: 4
+  basePrice: 10000
   maxTreeLevel: 200
   maxGenerationLevel: 200
   maxTapLevel: 200
