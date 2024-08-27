@@ -75,7 +75,11 @@ namespace Controller
         public int GetTotalLevel()
         {
             return playerData.grids.Count;
-            
+        }
+
+        public GridData[] GetAllGridData()
+        {
+            return playerData.grids.Values.ToArray();
         }
 
         public void SaveProgress()
