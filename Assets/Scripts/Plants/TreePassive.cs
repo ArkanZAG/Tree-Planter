@@ -167,16 +167,16 @@ namespace Plants
             => Mathf.RoundToInt((baseOxygen * (1 + treeLevel * 0.4f) + totalOxygenBonus) * GetForestBonus()) ;
         
         private int GetTapOxygenGeneration()
-            => Mathf.RoundToInt(baseTapOxygen + (1 + tapLevel * 0.5f)) + GetSavannaBonus();
+            => Mathf.RoundToInt(baseTapOxygen + ((1 + tapLevel * 0.2f)/2)) + GetSavannaBonus();
 
         private int GetTreeLevelUpgradeCost()
-            => Mathf.RoundToInt(GetPassiveOxygenGeneration() * (treeLevel / 2f));
+            => Mathf.RoundToInt(GetPassiveOxygenGeneration() * treeLevel);
 
         private int GetGenLevelUpgradeCost()
-            => Mathf.RoundToInt(50 + Mathf.Pow(generationLevel, 1.8f));
+            => Mathf.RoundToInt(Mathf.Pow(generationLevel, 2f));
 
         private int GetTapLevelUpgradeCost()
-            => Mathf.RoundToInt(GetTapOxygenGeneration() * (tapLevel / 2f));
+            => Mathf.RoundToInt(GetTapOxygenGeneration() * Mathf.Pow(tapLevel, 2f));
 
         #endregion
 

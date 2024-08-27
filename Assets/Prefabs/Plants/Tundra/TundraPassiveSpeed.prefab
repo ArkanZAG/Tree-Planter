@@ -156,13 +156,13 @@ MonoBehaviour:
   prefabId: tundra-passive-speed
   biomeType: 2
   baseOxygen: 10
-  baseSpeed: 2
-  baseTapOxygen: 5
-  basePrice: 100
+  baseSpeed: 0.6
+  baseTapOxygen: 2
+  basePrice: 5000
   maxTreeLevel: 200
   maxGenerationLevel: 200
   maxTapLevel: 200
-  speedPerGenerationLevel: 0.1
+  speedPerGenerationLevel: 0.01
 --- !u!114 &-7857710397876474182
 MonoBehaviour:
   m_ObjectHideFlags: 0
