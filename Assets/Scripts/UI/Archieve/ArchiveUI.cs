@@ -6,6 +6,7 @@ using UnityEngine;
 public class ArchiveUI : MonoBehaviour
 {
     [SerializeField] private GameObject elementUiPrefabs;
+    [SerializeField] private GameObject holder;
     [SerializeField] private Transform parent;
 
     [SerializeField] private GameController gameController;
@@ -13,17 +14,22 @@ public class ArchiveUI : MonoBehaviour
 
     private List<GameObject> spawnedObject;
 
-    private void DIsplay()
+    public void Display()
     {
         ClearElements();
-        
-        for (int i = 0; i < gameController.GetTotalLevel(); i++)
+
+        foreach (var data in gameController.GetAllGridData())
         {
             var obj = Instantiate(elementUiPrefabs, parent);
             var archieveElement = obj.GetComponent<ArchiveUIElement>();
-            archieveElement.Display(gameController, gridController);
+            archieveElement.Display(data, gameController, gridController);
             spawnedObject.Add(obj);
         }
+    }
+
+    public void Show(bool isShowing)
+    {
+        holder.SetActive(isShowing);
     }
 
     private void ClearElements()

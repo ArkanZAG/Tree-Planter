@@ -24,6 +24,7 @@ namespace Controller
         private Tile currentTile = null;
 
         private int width, depth;
+        private string gridName;
 
         private Dictionary<BiomeType, int> biomeTileCount = new();
 
@@ -34,6 +35,7 @@ namespace Controller
 
         public void Generate(GridData data)
         {
+            gridName = data.name;
             width = data.width;
             depth = data.depth; 
             
@@ -216,7 +218,7 @@ namespace Controller
                     plantList.Add(data);
                 }
 
-            return new GridData(version, width, depth, plantList.ToArray(), IsGridCompleted());
+            return new GridData(gridName, version, width, depth, plantList.ToArray(), IsGridCompleted());
         }
     }
 }

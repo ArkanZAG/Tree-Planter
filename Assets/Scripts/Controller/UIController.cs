@@ -13,14 +13,16 @@ namespace Controller
         [SerializeField] private PlantUI plantUI;
         [SerializeField] private UpgradeUI upgradeUI;
         [SerializeField] private AchievementUI achievementUI;
+        [SerializeField] private ArchiveUI archiveUI;
 
         [SerializeField] private Button achievementsButton;
-        [SerializeField] private Button inGamePurchasesButton;
+        [SerializeField] private Button archiveButton;
 
         private void Awake()
         {
             DisableAllUI();
             achievementsButton.onClick.AddListener(achievementUI.Display);
+            archiveButton.onClick.AddListener(archiveUI.Display);
         }
 
         private void DisableAllUI()
@@ -28,6 +30,7 @@ namespace Controller
             plantUI.Show(false);
             upgradeUI.Show(false);
             achievementUI.Show(false);
+            archiveUI.Show(false);
         }
 
         public void HideTray()
