@@ -11,13 +11,17 @@ public class ArchiveUI : MonoBehaviour
 
     [SerializeField] private GameController gameController;
     [SerializeField] private GridController gridController;
+    [SerializeField] private SoundController soundController;
 
-    private List<GameObject> spawnedObject;
+    [SerializeField] private AudioClip audioClipOpenArchiveUi;
+
+    private List<GameObject> spawnedObject = new();
 
     public void Display()
     {
+        soundController.PlaySfx(audioClipOpenArchiveUi);
         ClearElements();
-
+        
         foreach (var data in gameController.GetAllGridData())
         {
             var obj = Instantiate(elementUiPrefabs, parent);
