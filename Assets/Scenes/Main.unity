@@ -748,6 +748,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4941816697347665384}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &548538138 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5650036815604074064, guid: f7c53b595eada6747aef05bc024941e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4941816697347665384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &595070195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,6 +2309,16 @@ PrefabInstance:
       propertyPath: gameController
       value: 
       objectReference: {fileID: 1396357481}
+    - target: {fileID: 6581957258303301902, guid: dd61c740b66fa1a4b985cdcf02a5c71d,
+        type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 1755030729}
+    - target: {fileID: 6581957258303301902, guid: dd61c740b66fa1a4b985cdcf02a5c71d,
+        type: 3}
+      propertyPath: audioClipRemovePlant
+      value: 
+      objectReference: {fileID: 8300000, guid: c5e2a73ad4706440f93bf05df0b465fe, type: 3}
     - target: {fileID: 6952641755021711114, guid: dd61c740b66fa1a4b985cdcf02a5c71d,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2651,6 +2673,16 @@ PrefabInstance:
       propertyPath: gridController
       value: 
       objectReference: {fileID: 1938386791}
+    - target: {fileID: 7881397358729972241, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
+        type: 3}
+      propertyPath: openUiAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d8d04c6f80a1140db85ede568dab1f51, type: 3}
+    - target: {fileID: 7881397358729972241, guid: 8f3557f6ec9cbd44e9b3d8b97e8e8a66,
+        type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 1755030729}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2673,7 +2705,7 @@ MonoBehaviour:
   achievementUI: {fileID: 901082397}
   archiveUI: {fileID: 342220147}
   achievementsButton: {fileID: 933868249}
-  archiveButton: {fileID: 0}
+  archiveButton: {fileID: 548538138}
 --- !u!1001 &3276158061048116894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3278,6 +3310,11 @@ PrefabInstance:
       propertyPath: gridController
       value: 
       objectReference: {fileID: 1938386791}
+    - target: {fileID: 5308314452283017576, guid: b1a0fc834ad2b1a4b86091637e10a52d,
+        type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 1755030729}
     - target: {fileID: 6270168214732676230, guid: b1a0fc834ad2b1a4b86091637e10a52d,
         type: 3}
       propertyPath: m_AnchorMax.y
