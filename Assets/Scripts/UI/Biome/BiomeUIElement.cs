@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Biomes;
 using Data;
 using GridSystem;
 using Plants;
@@ -10,16 +11,13 @@ using UnityEngine.UI;
 
 public class BiomeUIElement : MonoBehaviour
 {
-    [SerializeField] private Sprite forestBiomeSprite;
-    [SerializeField] private Sprite savannaBiomeSprite;
-    [SerializeField] private Sprite tundraBiomeSprite;
-
     [SerializeField] private Button button;
 
     [SerializeField] private PlantDatabase plantDataBase;
 
     [SerializeField] private Image image;
 
+    private BiomeData biomeData;
     private BiomeType biomeType;
     private PlantUI plantUi;
     private Tile tile;
@@ -30,27 +28,14 @@ public class BiomeUIElement : MonoBehaviour
     }
     
 
-    public void Display(BiomeType biome, PlantUI pUI, Tile tl)
+    public void Display(BiomeType biome, BiomeData data, PlantUI pUI, Tile tl)
     {
+        biomeData = data;
         biomeType = biome;
         plantUi = pUI;
         tile = tl;
-        
-        switch (biome)
-        {
-            case BiomeType.Forest :
-                image.sprite = forestBiomeSprite;
-                break;
-            case BiomeType.Savanna :
-                image.sprite = savannaBiomeSprite;
-                break;
-            case BiomeType.Tundra :
-                image.sprite = tundraBiomeSprite;
-                break;
-            case BiomeType.None:
-            default:
-                break;
-        }
+
+        image.sprite = data.BiomeIcon;
     }
 
     public void OnClick()

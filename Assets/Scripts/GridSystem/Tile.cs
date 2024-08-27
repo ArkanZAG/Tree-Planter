@@ -1,4 +1,5 @@
 using System;
+using Biomes;
 using Data;
 using DG.Tweening;
 using Plants;
@@ -10,6 +11,7 @@ namespace GridSystem
     {
         [SerializeField] private Outline outline;
         [SerializeField] private GameObject visual;
+        [SerializeField] private MeshRenderer mesh;
 
         private int x, y;
 
@@ -18,6 +20,8 @@ namespace GridSystem
     
         private Tween selectTween;
         private IPlant currentPlant = null;
+        private BiomeDatabase biomeDatabase;
+        private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
 
         public event Action OnTileUpdated;
 
@@ -41,7 +45,7 @@ namespace GridSystem
             selectTween = visual.transform.DOLocalMoveY(originalY, 0.15f).SetEase(Ease.OutCirc);
         }
 
-        public void Initialize(int newX, int newY)
+        public void Initialize(BiomeDatabase biomeDb, int newX, int newY)
         {
             x = newX;
             y = newY;
@@ -53,12 +57,13 @@ namespace GridSystem
         {
             currentPlant = plant;
             currentPlant.OnPlantUpdated += OnCurrentPlantUpdated;
-            SetBiome(currentPlant.Biome);
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }
 
         private void OnCurrentPlantUpdated()
         {
+            SetBiomeProgression(currentPlant.Biome, currentPlant.GetNormalizedVisualProgress());
+            
             OnTileUpdated?.Invoke();
         }
 
@@ -71,9 +76,12 @@ namespace GridSystem
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }
 
-        public void SetBiome(BiomeType biome)
+        public void SetBiomeProgression(BiomeType biome, float normalizedProgress)
         {
-            //TODO: CHANGE VISUAL HERE BASED ON BIOME
+            var data = biomeDatabase.Get(biome);
+            var color = data.TileGradient.Evaluate(normalizedProgress);
+            
+            mesh.material.SetColor(BaseColor, color);   
         }
     }
 }

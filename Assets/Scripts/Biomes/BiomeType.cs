@@ -1,4 +1,4 @@
-namespace Data
+namespace Biomes
 {
     public enum BiomeType
     {

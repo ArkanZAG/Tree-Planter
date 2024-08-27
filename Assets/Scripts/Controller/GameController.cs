@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Achievements;
+using Biomes;
 using Data;
 using Plants;
 using Save;
@@ -21,6 +22,7 @@ namespace Controller
         [SerializeField] private int defaultDepth = 10;
         [SerializeField] private GridController gridController;
         [SerializeField] private PlantDatabase plantDataBase;
+        [SerializeField] private BiomeDatabase biomeDatabase;
         [SerializeField] private int oxygen;
         [SerializeField] private NoticePopup noticePopup;
         
@@ -32,6 +34,7 @@ namespace Controller
         private void Start()
         {
             plantDataBase.Initialize();
+            biomeDatabase.Initialize();
             Achievement.Initialize();
             
             if (SaveSystem.HasSaveData())

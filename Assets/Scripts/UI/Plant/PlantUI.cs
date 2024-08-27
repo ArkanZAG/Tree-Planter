@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Biomes;
 using Controller;
 using Data;
 using GridSystem;
@@ -20,6 +21,7 @@ namespace UI.Plant
         [SerializeField] private Transform biomeParent;
 
         [SerializeField] private PlantDatabase plantDatabase;
+        [SerializeField] private BiomeDatabase biomeDatabase;
 
         [SerializeField] private GridController gridController;
         [SerializeField] private UIController uiController;
@@ -76,7 +78,8 @@ namespace UI.Plant
                 if (biomeType == BiomeType.None) continue;
                 var obj = Instantiate(elementBiome, biomeParent);
                 var biomeElement = obj.GetComponent<BiomeUIElement>();
-                biomeElement.Display(biomeType, this, currentTile);
+                var data = biomeDatabase.Get(biomeType);
+                biomeElement.Display(biomeType, data, this, currentTile);
                 spawnedElement.Add(obj);
             }
         }

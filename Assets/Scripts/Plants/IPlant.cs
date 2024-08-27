@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Biomes;
 using Controller;
 using Data;
 using GridSystem;
@@ -25,5 +26,7 @@ namespace Plants
         public UpgradeDefinition[] GetUpgrades();
 
         public bool IsMaxLevel();
+
+        public float GetNormalizedVisualProgress();
     }
 }

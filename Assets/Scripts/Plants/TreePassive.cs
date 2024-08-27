@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Biomes;
 using Controller;
 using Data;
 using GridSystem;
@@ -108,6 +109,14 @@ namespace Plants
             return treeLevel >= maxTreeLevel
                    && generationLevel >= maxGenerationLevel
                    && tapLevel >= maxTapLevel;
+        }
+
+        public float GetNormalizedVisualProgress()
+        {
+            var totalLevel = treeLevel + tapLevel + generationLevel;
+            var totalMaxLevel = maxTreeLevel + maxTapLevel + maxGenerationLevel;
+
+            return (float) totalLevel / totalMaxLevel;
         }
 
         #region Save

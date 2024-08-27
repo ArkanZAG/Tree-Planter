@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Biomes;
 using Data;
 using GridSystem;
 using Plants;
@@ -15,6 +16,7 @@ namespace Controller
         [SerializeField] private Tile tilePrefab;
         [SerializeField] private MeshGrid grid;
         [SerializeField] private PlantDatabase plantDataBase;
+        [SerializeField] private BiomeDatabase biomeDataBase;
         [SerializeField] private GameController gameController;
         [SerializeField] private EffectsController effectsController;
         [SerializeField] private AchievementUI achievementUI;
@@ -53,7 +55,7 @@ namespace Controller
                 {
                     var pos = startPos + new Vector3(x, 0f, y);
                     var tile = Instantiate(tilePrefab, pos, Quaternion.identity);
-                    tile.Initialize(x, y);
+                    tile.Initialize(biomeDataBase, x, y);
                     tile.OnTileUpdated += OnAnyTileUpdated;
                     spawnedTile[x][y] = tile;
                 }

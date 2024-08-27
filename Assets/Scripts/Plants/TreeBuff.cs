@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Biomes;
 using Controller;
 using Data;
 using GridSystem;
@@ -77,7 +78,14 @@ namespace Plants
 
             throw new Exception($"Buff Tree with id {prefabId} has 0 Oxygen and Speed buff?");
         }
-        
+
+        public float GetNormalizedVisualProgress()
+        {
+            if (IsOxygenBuff) return (float) oxygenLevel / maxOxygenLevel;
+            if (IsSpeedBuff) return (float) speedLevel / maxSpeedLevel;
+            return 0f;
+        }
+
         public UpgradeDefinition[] GetUpgrades()
         {
             var list = new List<UpgradeDefinition>();
