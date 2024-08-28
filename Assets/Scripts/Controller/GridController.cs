@@ -37,7 +37,7 @@ namespace Controller
 
         public void Generate(GridData data)
         {
-            CleanGrid();
+            if (spawnedTile != null) CleanGrid();
             
             gridName = data.name;
             width = data.width;
