@@ -81,6 +81,8 @@ namespace Controller
            
            var gridToLoad = playerData.grids[playerData.currentGridId];
            gridController.Generate(gridToLoad);
+           
+           SaveProgress();
         }
 
         private PlayerData CreateEmptyStartingData()

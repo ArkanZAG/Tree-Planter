@@ -37,6 +37,8 @@ namespace Controller
 
         public void Generate(GridData data)
         {
+            CleanGrid();
+            
             gridName = data.name;
             width = data.width;
             depth = data.depth; 
@@ -70,6 +72,17 @@ namespace Controller
             EvaluatePlantCount();
             
             OnTilesUpdated?.Invoke();
+        }
+
+        private void CleanGrid()
+        {
+            foreach (var tileArray in spawnedTile)
+            {
+                foreach (var tile in tileArray)
+                {
+                    Destroy(tile.gameObject);
+                }
+            }
         }
 
         private void OnAnyTileUpdated()
