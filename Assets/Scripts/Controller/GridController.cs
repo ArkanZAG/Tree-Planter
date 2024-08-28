@@ -27,6 +27,7 @@ namespace Controller
 
         private int width, depth;
         private string gridName;
+        private bool shouldPlantsGenerate = true;
 
         private Dictionary<BiomeType, int> biomeTileCount = new();
 
@@ -34,10 +35,13 @@ namespace Controller
 
         public Tile SelectedTile => currentTile;
         public Vector3 StartPos => startPos;
+        public bool ShouldPlantsGenerate => shouldPlantsGenerate;
 
         public void Generate(GridData data)
         {
             if (spawnedTile != null) CleanGrid();
+
+            shouldPlantsGenerate = !data.isCompleted;
             
             gridName = data.name;
             width = data.width;
@@ -73,7 +77,7 @@ namespace Controller
             
             OnTilesUpdated?.Invoke();
         }
-
+        
         private void CleanGrid()
         {
             foreach (var tileArray in spawnedTile)
@@ -87,6 +91,8 @@ namespace Controller
 
         private void OnAnyTileUpdated()
         {
+            shouldPlantsGenerate = !IsGridCompleted();
+            
             OnTilesUpdated?.Invoke();
 
             EvaluatePlantCount();

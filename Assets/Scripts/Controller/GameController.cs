@@ -34,7 +34,7 @@ namespace Controller
 
         public int Oxygen => oxygen;
         private bool hasGameStarted = false;
-
+        
         private void Start()
         {
             plantDataBase.Initialize();

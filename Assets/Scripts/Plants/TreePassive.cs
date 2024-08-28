@@ -78,6 +78,7 @@ namespace Plants
         public void TapGenerate()
         {
             if (!initialized) return;
+            if (!gridController.ShouldPlantsGenerate) return;
             var oxygenGeneration = GetTapOxygenGeneration();
             game.AddOxygen(oxygenGeneration);
             effects.ShowFlyingText($"+{oxygenGeneration}", transform.position);
@@ -85,6 +86,7 @@ namespace Plants
         private void Update()
         {
             if (!initialized) return;
+            if (!gridController.ShouldPlantsGenerate) return;
 
             currentTimer += Time.deltaTime;
             var gps = GetGenerationPerSecond();
@@ -99,6 +101,8 @@ namespace Plants
         private void GeneratePassive()
         {
             if (!initialized) return;
+            if (!gridController.ShouldPlantsGenerate) return;
+
             var oxygenGeneration = GetPassiveOxygenGeneration();
             game.AddOxygen(oxygenGeneration);
             effects.ShowFlyingText($"+{oxygenGeneration}", transform.position, 1f / GetGenerationPerSecond());
