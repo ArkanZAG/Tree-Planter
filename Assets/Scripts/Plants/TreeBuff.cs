@@ -22,14 +22,16 @@ namespace Plants
         [SerializeField] private float baseOxygenBuff;
         [SerializeField] private float baseSpeedBuff;
         [SerializeField] private int basePrice;
-        [SerializeField] private int maxOxygenLevel = 100;
-        [SerializeField] private int maxSpeedLevel = 100;
+        [SerializeField] private int maxOxygenLevel = 1;
+        [SerializeField] private int maxSpeedLevel = 1;
         [SerializeField] private float bonusSpeedPerLevel = 0.1f;
         
         private Tile currentTile;
 
         private int speedLevel = 1;
         private int oxygenLevel = 1;
+
+        private int a = 1;
 
         public float BaseOxygenBuff => baseOxygenBuff;
         public float BaseSpeedBuff => baseSpeedBuff;
@@ -90,8 +92,12 @@ namespace Plants
         {
             var list = new List<UpgradeDefinition>();
 
-            if (IsOxygenBuff) list.Add(new UpgradeDefinition("Upgrade Oxygen Buff", GetOxygenLevel, GetOxygenUpgradeCost, OnOxygenUpgrade));
-            if (IsSpeedBuff) list.Add(new UpgradeDefinition("Upgrade Speed Buff", GetSpeedLevel, GetSpeedUpgradeCost, OnSpeedUpgrade));
+            if (IsOxygenBuff)
+                list.Add(new UpgradeDefinition("Upgrade Oxygen Buff", GetOxygenLevel, GetOxygenUpgradeCost,
+                    GetOxygenMaxLevel, OnOxygenUpgrade));
+            if (IsSpeedBuff)
+                list.Add(new UpgradeDefinition("Upgrade Speed Buff", GetSpeedLevel, GetSpeedUpgradeCost,
+                    GetSpeedMaxLevel, OnSpeedUpgrade));
 
             return list.ToArray();
         }
@@ -100,9 +106,10 @@ namespace Plants
 
         public int GetOxygenBonus() => IsOxygenBuff ? oxygenLevel : 0;
         public float GetSpeedBonus() => IsSpeedBuff ? speedLevel * bonusSpeedPerLevel : 0;
-
         private int GetOxygenLevel() => oxygenLevel;
         private int GetOxygenUpgradeCost() => Mathf.RoundToInt(Mathf.Pow(oxygenLevel, 1.2f));
+        private int GetOxygenMaxLevel() => maxOxygenLevel;
+        private int GetSpeedMaxLevel() => maxSpeedLevel;
         private void OnOxygenUpgrade()
         {
             oxygenLevel++;

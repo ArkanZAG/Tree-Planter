@@ -24,9 +24,9 @@ namespace Plants
         [SerializeField] [Tooltip("Base Speed Oxygen Generation Per Second")] private float baseSpeed;
         [SerializeField] [Tooltip("Base Oxygen Per Tap")]private int baseTapOxygen;
         [SerializeField] private int basePrice;
-        [SerializeField] private int maxTreeLevel = 200;
-        [SerializeField] private int maxGenerationLevel = 200;
-        [SerializeField] private int maxTapLevel = 200;
+        [SerializeField] private int maxTreeLevel = 1;
+        [SerializeField] private int maxGenerationLevel = 1;
+        [SerializeField] private int maxTapLevel = 1;
         [Header("Modifier")]
         [SerializeField] private float speedPerGenerationLevel = 0.1f;
 
@@ -186,15 +186,22 @@ namespace Plants
         {
             return new UpgradeDefinition[]
             {
-                new("Tree Level", GetTreeLevel, GetTreeLevelUpgradeCost, OnTreeLevelUpgrade),
-                new("Generation Level", GetGenerationLevel, GetGenLevelUpgradeCost, OnGenLevelUpgrade),
-                new("Tap Level", GetTapLevel, GetTapLevelUpgradeCost, OnTapLevelUpgrade),
+                new("Tree Level", GetTreeLevel, GetTreeLevelUpgradeCost,GetMaxTreeLevel, OnTreeLevelUpgrade),
+                new("Generation Level", GetGenerationLevel, GetGenLevelUpgradeCost,GetMaxGenerationLevel, OnGenLevelUpgrade),
+                new("Tap Level", GetTapLevel, GetTapLevelUpgradeCost,GetMaxTapLevel, OnTapLevelUpgrade),
             };
         }
 
         public int GetTreeLevel() => treeLevel;
         public int GetGenerationLevel() => generationLevel;
         public int GetTapLevel() => tapLevel;
+
+        public int GetMaxTreeLevel() => maxTreeLevel;
+        public int GetMaxGenerationLevel() => maxGenerationLevel;
+        public int GetMaxTapLevel() => maxTapLevel;
+        
+            
+        
 
         private void OnTreeLevelUpgrade()
         {

@@ -32,15 +32,33 @@ namespace UI.Upgrade
             gameController = game;
             soundController = soundCont;
 
-            levelText.text = upgrade.getCurrentLevel.Invoke().ToString();
+            var currentLevel = upgrade.getCurrentLevel.Invoke();
+            var maxLevel = upgrade.getMaxLevel.Invoke();
+
+
+            levelText.text = $"{currentLevel} / {maxLevel}";
             priceText.text = upgrade.getCurrentCost.Invoke().ToString();
             titleText.text = upgrade.title;
-
+            
+            UpdateStatus();
+        }
+        
+        public void UpdateStatus()
+        {
+            var currentLevel = upgradeDefinition.getCurrentLevel.Invoke();
+            var maxLevel = upgradeDefinition.getMaxLevel.Invoke();
+            
+            if (currentLevel >= maxLevel)
+            {
+                priceText.text = "MAX";
+                button.interactable = false;
+            }
         }
 
         private void OnClick()
         {
             var cost = upgradeDefinition.getCurrentCost.Invoke();
+            UpdateStatus();
             
             if (gameController.Oxygen >= cost)
             {

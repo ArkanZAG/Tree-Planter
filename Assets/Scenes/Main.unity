@@ -1458,8 +1458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db3ef1e00b66fa4db0fef4a6b7a6ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultWidth: 10
-  defaultDepth: 10
+  defaultWidth: 3
+  defaultDepth: 3
   gridController: {fileID: 1938386791}
   plantDataBase: {fileID: 11400000, guid: 32be6599e90457b4a93d637ac9bb1cfe, type: 2}
   biomeDatabase: {fileID: 11400000, guid: 9b5c8e73ae325cc4baf59495f73ed286, type: 2}
@@ -1723,6 +1723,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FinishArchivePopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 713141399556914347, guid: 69047d83c897c2341bda6ee70862891e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2340677442945792078, guid: 69047d83c897c2341bda6ee70862891e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

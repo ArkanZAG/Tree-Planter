@@ -52,9 +52,9 @@ MonoBehaviour:
   baseSpeed: 0.6
   baseTapOxygen: 2
   basePrice: 5000
-  maxTreeLevel: 200
-  maxGenerationLevel: 200
-  maxTapLevel: 200
+  maxTreeLevel: 1
+  maxGenerationLevel: 1
+  maxTapLevel: 1
   speedPerGenerationLevel: 0.01
 --- !u!114 &-7857710397876474182
 MonoBehaviour:

@@ -21,6 +21,7 @@ public class ArchiveUI : MonoBehaviour
     {
         soundController.PlaySfx(audioClipOpenArchiveUi);
         ClearElements();
+        holder.SetActive(true);
         
         foreach (var data in gameController.GetAllGridData())
         {

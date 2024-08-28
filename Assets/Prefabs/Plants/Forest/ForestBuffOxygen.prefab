@@ -156,8 +156,8 @@ MonoBehaviour:
   baseOxygenBuff: 1
   baseSpeedBuff: 0
   basePrice: 100
-  maxOxygenLevel: 100
-  maxSpeedLevel: 100
+  maxOxygenLevel: 1
+  maxSpeedLevel: 1
   bonusSpeedPerLevel: 0.1
 --- !u!114 &4550313496061409226
 MonoBehaviour:
