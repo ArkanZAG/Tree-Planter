@@ -182,6 +182,9 @@ namespace Controller
 
             var totalIncome = gridController.GetTotalIncomePerSecond() * (float) timeDelta.TotalSeconds;
             var roundedIncome = Mathf.RoundToInt(totalIncome);
+
+            if (roundedIncome <= 0) return;
+            
             AddOxygen(roundedIncome);
             noticePopup.Display($"While you were away, you gained +{roundedIncome} Oxygen!");
             Debug.Log($"Displaying income {roundedIncome}");

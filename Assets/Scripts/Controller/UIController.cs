@@ -14,6 +14,7 @@ namespace Controller
         [SerializeField] private UpgradeUI upgradeUI;
         [SerializeField] private AchievementUI achievementUI;
         [SerializeField] private ArchiveUI archiveUI;
+        [SerializeField] private CameraController cameraController;
 
         [SerializeField] private Button achievementsButton;
         [SerializeField] private Button archiveButton;
@@ -31,6 +32,7 @@ namespace Controller
             upgradeUI.Show(false);
             achievementUI.Show(false);
             archiveUI.Show(false);
+            cameraController.SetIsUIOffset(false);
         }
 
         public void HideTray()
@@ -41,6 +43,9 @@ namespace Controller
         public void ShowTray(Tile tile)
         {
             DisableAllUI();
+            
+            cameraController.SetIsUIOffset(true);
+            
             if (tile.CurrentPlant == null)
             {
                 plantUI.SpawnElements(tile);

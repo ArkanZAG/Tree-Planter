@@ -32,6 +32,7 @@ namespace Controller
                 mainTransposer = mainCamera.GetCinemachineComponent<CinemachineTransposer>();
                 topDownTransposer = topDownCamera.GetCinemachineComponent<CinemachineTransposer>();
                 zoomSlider.onValueChanged.AddListener(f => currentZoomAlpha = Mathf.Clamp01(f));
+                zoomSlider.SetValueWithoutNotify(currentZoomAlpha);
         }
         
         public void AddZoom(float f)
@@ -50,7 +51,7 @@ namespace Controller
         
         private void ProcessZoom()
         {
-                smoothAlpha = Mathf.SmoothDamp(smoothAlpha, currentZoomAlpha, ref smoothVelocity, 0.1f);
+                smoothAlpha = Mathf.SmoothDamp(smoothAlpha, 1f - currentZoomAlpha, ref smoothVelocity, 0.1f);
                 var followOffset = Vector3.Slerp(minZoomOffset, maxZoomOffset, smoothAlpha);
                 mainTransposer.m_FollowOffset = followOffset;
                 topDownTransposer.m_FollowOffset = new Vector3(0f, followOffset.y, 0f);

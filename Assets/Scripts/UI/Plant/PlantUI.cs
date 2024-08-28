@@ -32,12 +32,18 @@ namespace UI.Plant
         private Tile currentTile;
 
         private List<GameObject> spawnedElement = new();
+        private List<BiomeUIElement> spawnedBiomeElement = new();
 
-        public void SetBiome(BiomeType Biome)
+        public void SetBiome(BiomeType biome)
         {
-            currentBiome = Biome;
+            currentBiome = biome;
+
+            foreach (var element in spawnedBiomeElement)
+            {
+                element.SetHighlighted(currentBiome == element.Biome);
+            }
         }
-        
+
         public void SpawnElements(Tile tile)
         {
             currentTile = tile;
@@ -73,16 +79,30 @@ namespace UI.Plant
 
         public void SpawnBiomeElement()
         {
+            ClearBiomeElements();
+            
             foreach (var biome in Enum.GetValues(typeof(BiomeType)))
             {
                 if (biome is not BiomeType biomeType) continue;
                 if (biomeType == BiomeType.None) continue;
                 var obj = Instantiate(elementBiome, biomeParent);
                 var biomeElement = obj.GetComponent<BiomeUIElement>();
+                
                 var data = biomeDatabase.Get(biomeType);
                 biomeElement.Display(biomeType, data, this, currentTile);
-                spawnedElement.Add(obj);
+                biomeElement.SetHighlighted(currentBiome == biomeElement.Biome);
+
+                spawnedBiomeElement.Add(biomeElement);
             }
+        }
+
+        private void ClearBiomeElements()
+        {
+            for (int i = 0; i < spawnedBiomeElement.Count; i++)
+            {
+                Destroy(spawnedBiomeElement[i].gameObject);
+            }
+            spawnedBiomeElement.Clear();
         }
 
         public void Show(bool isShowing)

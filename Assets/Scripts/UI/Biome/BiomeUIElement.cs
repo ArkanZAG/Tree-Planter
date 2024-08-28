@@ -8,19 +8,24 @@ using Plants;
 using UI.Plant;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilities;
 
 public class BiomeUIElement : MonoBehaviour
 {
     [SerializeField] private Button button;
 
-    [SerializeField] private PlantDatabase plantDataBase;
-
     [SerializeField] private Image image;
+
+    [SerializeField] private ButtonScaleAnimation animation;
+
+    [SerializeField] private BoolSpriteSwitcher boolSpriteSwitcher;
 
     private BiomeData biomeData;
     private BiomeType biomeType;
     private PlantUI plantUi;
     private Tile tile;
+
+    public BiomeType Biome => biomeType;
 
     private void Awake()
     {
@@ -40,7 +45,10 @@ public class BiomeUIElement : MonoBehaviour
 
     public void OnClick()
     {
+        animation.StartAnimation();
         plantUi.SetBiome(biomeType);
         plantUi.SpawnElements(tile);
     }
+
+    public void SetHighlighted(bool on) => boolSpriteSwitcher.Set(on);
 }
