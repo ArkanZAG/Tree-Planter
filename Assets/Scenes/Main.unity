@@ -246,7 +246,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967252810047306146, guid: 22310fb436bbd5646bee0d44536c49b4,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967252810047306146, guid: 22310fb436bbd5646bee0d44536c49b4,
+        type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967252810047306146, guid: 22310fb436bbd5646bee0d44536c49b4,
+        type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2632326326010022977, guid: 22310fb436bbd5646bee0d44536c49b4,
@@ -1458,8 +1468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db3ef1e00b66fa4db0fef4a6b7a6ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultWidth: 3
-  defaultDepth: 3
+  defaultWidth: 2
+  defaultDepth: 2
   gridController: {fileID: 1938386791}
   plantDataBase: {fileID: 11400000, guid: 32be6599e90457b4a93d637ac9bb1cfe, type: 2}
   biomeDatabase: {fileID: 11400000, guid: 9b5c8e73ae325cc4baf59495f73ed286, type: 2}
