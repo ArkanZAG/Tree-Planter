@@ -17,6 +17,7 @@ namespace Data
             this.x = x;
             this.y = y;
             this.id = id;
+            this.values = values;
         }
     }
 }

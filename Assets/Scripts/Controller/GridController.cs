@@ -39,6 +39,7 @@ namespace Controller
 
         public void Generate(GridData data)
         {
+            if (data.name.Equals(gridName)) return;
             if (spawnedTile != null) CleanGrid();
 
             shouldPlantsGenerate = !data.isCompleted;
@@ -71,7 +72,7 @@ namespace Controller
         
             grid.Generate(width, depth);
 
-            SpawnPlants(data.plants);
+            SpawnPlants(data.plants, data.version);
 
             EvaluatePlantCount();
             
@@ -100,18 +101,20 @@ namespace Controller
             gameController.SaveProgress();
         }
 
-        private void SpawnPlants(PlantData[] dataPlants)
+        private void SpawnPlants(PlantData[] dataPlants, int version)
         {
             for (int i = 0; i < dataPlants.Length; i++)
             {
                 var data = dataPlants[i];
                 var tile = spawnedTile[data.x][data.y];
                 var prefab = plantDataBase.GetPrefab(data.id);
-                PlantToTile(prefab, tile, false);
+                var plant = PlantToTile(prefab, tile, false);
+                if (data.values == null) continue;
+                plant.SetValues(data.values, version);
             }
         }
 
-        public void PlantToTile(GameObject prefab, Tile tile, bool invokeUpdate = true)
+        public IPlant PlantToTile(GameObject prefab, Tile tile, bool invokeUpdate = true)
         {
             var obj = Instantiate(prefab, tile.transform);
             var iPlant = obj.GetComponent<IPlant>();
@@ -119,6 +122,8 @@ namespace Controller
                 
             iPlant.Initialize(tile, neighbours.ToArray(), gameController, this, effectsController);
             tile.SetPlant(iPlant, invokeUpdate);
+
+            return iPlant;
         }
 
         public void GenerateAllPassive()

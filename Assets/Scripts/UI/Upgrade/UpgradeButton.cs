@@ -36,7 +36,7 @@ namespace UI.Upgrade
             cost = definition.getCost.Invoke(levelAmount);
             gameController = game;
 
-            bool shouldShow = currentLevel + levelAmount < maxLevel;
+            bool shouldShow = currentLevel + levelAmount <= maxLevel;
 
             buttonGroup.gameObject.SetActive(shouldShow);
 

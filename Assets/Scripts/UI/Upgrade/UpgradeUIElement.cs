@@ -33,12 +33,15 @@ namespace UI.Upgrade
         {
             var currentLevel = upgradeDefinition.getCurrentLevel.Invoke();
             var maxLevel = upgradeDefinition.getMaxLevel.Invoke();
+            var levelToMaxLevel = maxLevel - currentLevel;
+            var lastLevel = Mathf.Min(50, Mathf.Clamp(levelToMaxLevel, 11, int.MaxValue));
+            Debug.Log($"UPGRADE: {upgradeDefinition.title} LAST LEVEL IS {lastLevel}");
             
             titleText.text = $"{upgradeDefinition.title} Lv.{currentLevel}<size=60%> /{maxLevel}";
 
             first.Display(gameController, upgradeDefinition, 1, currentLevel, maxLevel, OnLevelUp);
             second.Display(gameController, upgradeDefinition, 10, currentLevel, maxLevel, OnLevelUp);
-            third.Display(gameController, upgradeDefinition, 50, currentLevel, maxLevel, OnLevelUp);
+            third.Display(gameController, upgradeDefinition, lastLevel, currentLevel, maxLevel, OnLevelUp);
         }
 
         private void OnLevelUp(int levelAmount)

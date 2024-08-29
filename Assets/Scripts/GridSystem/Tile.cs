@@ -12,6 +12,7 @@ namespace GridSystem
         [SerializeField] private Outline outline;
         [SerializeField] private GameObject visual;
         [SerializeField] private MeshRenderer mesh;
+        [SerializeField] private Color tileOriginalColor;
 
         private int x, y;
 
@@ -66,6 +67,8 @@ namespace GridSystem
 
             plantOutlines = plant.GameObject.GetComponentsInChildren<Outline>(true);
             
+            SetBiomeProgression(plant.Biome, plant.GetNormalizedVisualProgress());
+            
             currentPlant.OnPlantUpdated += OnCurrentPlantUpdated;
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }
@@ -83,7 +86,8 @@ namespace GridSystem
             Destroy(currentPlant.GameObject);
             currentPlant = null;
             plantOutlines = Array.Empty<Outline>();
-            
+            mesh.material.SetColor(BaseColor, tileOriginalColor);   
+
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }
 
@@ -91,7 +95,8 @@ namespace GridSystem
         {
             var data = biomeDatabase.Get(biome);
             var color = data.TileGradient.Evaluate(normalizedProgress);
-            
+            Debug.Log($"SET BIOME {biome} PROGRESS TO {normalizedProgress}");
+
             mesh.material.SetColor(BaseColor, color);   
         }
     }

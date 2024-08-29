@@ -110,6 +110,7 @@ namespace Controller
 
         public void SaveProgress()
         {
+            Debug.Log("SAVING PROGRESS");
             playerData.oxygen = oxygen;
             playerData.grids[playerData.currentGridId] = gridController.GetCurrentAsData(VERSION);
 
