@@ -24,6 +24,8 @@ namespace UI.Upgrade
 
         private Tile tile;
 
+        private bool isUIActive;
+
         private void Start()
         {
             removeButton.onClick.AddListener(RemovePlant);
@@ -31,6 +33,7 @@ namespace UI.Upgrade
 
         public void Display(Tile clickedTile)
         {
+            if (tile != null && tile.Equals(clickedTile)) return;
             tile = clickedTile;
             
             ClearElements();
@@ -52,6 +55,7 @@ namespace UI.Upgrade
         
         public void Show(bool isShowing)
         {
+            isUIActive = isShowing;
             holder.SetActive(isShowing);
         }
 

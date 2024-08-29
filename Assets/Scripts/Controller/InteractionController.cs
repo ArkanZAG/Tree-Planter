@@ -52,7 +52,7 @@ namespace Controller
             var currentMagnitude = (touchZero.position - touchOne.position).magnitude;
 
             var difference = currentMagnitude - prevMagnitude;
-            cameraController.AddZoom(difference * zoomPinchModifier);
+            cameraController.AddZoom(difference * -zoomPinchModifier);
             return true;
         }
 

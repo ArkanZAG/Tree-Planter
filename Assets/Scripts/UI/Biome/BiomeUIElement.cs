@@ -5,6 +5,7 @@ using Biomes;
 using Data;
 using GridSystem;
 using Plants;
+using UI.Animations;
 using UI.Plant;
 using UnityEngine;
 using UnityEngine.UI;

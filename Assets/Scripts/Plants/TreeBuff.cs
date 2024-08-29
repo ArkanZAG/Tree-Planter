@@ -93,33 +93,52 @@ namespace Plants
             var list = new List<UpgradeDefinition>();
 
             if (IsOxygenBuff)
-                list.Add(new UpgradeDefinition("Upgrade Oxygen Buff", GetOxygenLevel, GetOxygenUpgradeCost,
+                list.Add(new UpgradeDefinition("Upgrade Oxygen Buff", GetOxygenLevel, GetTotalOxygenUpgradeCost,
                     GetOxygenMaxLevel, OnOxygenUpgrade));
             if (IsSpeedBuff)
-                list.Add(new UpgradeDefinition("Upgrade Speed Buff", GetSpeedLevel, GetSpeedUpgradeCost,
+                list.Add(new UpgradeDefinition("Upgrade Speed Buff", GetSpeedLevel, GetTotalSpeedUpgradeCost,
                     GetSpeedMaxLevel, OnSpeedUpgrade));
 
             return list.ToArray();
         }
 
         #region Calculations
+        
+        
+        private int GetSpeedUpgradeCost(int level) => Mathf.RoundToInt(Mathf.Pow(level, 1.2f));        
+        private int GetOxygenUpgradeCost(int level) => Mathf.RoundToInt(Mathf.Pow(level, 1.2f));
+
+        private int GetTotalSpeedUpgradeCost(int levelAmount)
+        {
+            int total = 0;
+            for (int i = speedLevel; i < speedLevel + levelAmount; i++)
+                total += GetSpeedUpgradeCost(i);
+            return total;
+        }    
+        
+        private int GetTotalOxygenUpgradeCost(int levelAmount)
+        {
+            int total = 0;
+            for (int i = oxygenLevel; i < oxygenLevel + levelAmount; i++)
+                total += GetOxygenUpgradeCost(i);
+            return total;
+        }
 
         public int GetOxygenBonus() => IsOxygenBuff ? oxygenLevel : 0;
         public float GetSpeedBonus() => IsSpeedBuff ? speedLevel * bonusSpeedPerLevel : 0;
         private int GetOxygenLevel() => oxygenLevel;
-        private int GetOxygenUpgradeCost() => Mathf.RoundToInt(Mathf.Pow(oxygenLevel, 1.2f));
         private int GetOxygenMaxLevel() => maxOxygenLevel;
         private int GetSpeedMaxLevel() => maxSpeedLevel;
-        private void OnOxygenUpgrade()
+        private void OnOxygenUpgrade(int amount)
         {
-            oxygenLevel++;
+            oxygenLevel += amount;
             OnPlantUpdated?.Invoke();
         }
         private int GetSpeedLevel() => speedLevel;
-        private int GetSpeedUpgradeCost() => Mathf.RoundToInt(Mathf.Pow(speedLevel, 1.2f));
-        private void OnSpeedUpgrade()
+
+        private void OnSpeedUpgrade(int amount)
         {
-            speedLevel++;
+            speedLevel += amount;
             OnPlantUpdated?.Invoke();
         } 
 

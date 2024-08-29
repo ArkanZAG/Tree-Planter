@@ -30,9 +30,9 @@ namespace Plants
         [Header("Modifier")]
         [SerializeField] private float speedPerGenerationLevel = 0.1f;
 
-        private int treeLevel = 0;
-        private int generationLevel = 0;
-        private int tapLevel = 0;
+        private int treeLevel = 1;
+        private int generationLevel = 1;
+        private int tapLevel = 1;
 
         private int totalOxygenBonus;
         private float totalSpeedBonus;
@@ -173,14 +173,38 @@ namespace Plants
         private int GetTapOxygenGeneration()
             => Mathf.RoundToInt(baseTapOxygen + ((1 + tapLevel * 0.2f)/2)) + GetSavannaBonus();
 
-        private int GetTreeLevelUpgradeCost()
-            => Mathf.RoundToInt(GetPassiveOxygenGeneration() * treeLevel);
+        private int GetTreeLevelUpgradeCost(int level)
+            => Mathf.RoundToInt(GetPassiveOxygenGeneration() * level);
 
-        private int GetGenLevelUpgradeCost()
-            => Mathf.RoundToInt(Mathf.Pow(generationLevel, 2f));
+        private int GetGenLevelUpgradeCost(int level)
+            => Mathf.RoundToInt(Mathf.Pow(level, 2f));
 
-        private int GetTapLevelUpgradeCost()
-            => Mathf.RoundToInt(GetTapOxygenGeneration() * Mathf.Pow(tapLevel, 2f));
+        private int GetTapLevelUpgradeCost(int level)
+            => Mathf.RoundToInt(GetTapOxygenGeneration() * Mathf.Pow(level, 2f));
+
+        private int GetTotalTreeLevelUpgradeCost(int levelAmount)
+        {
+            int total = 0;
+            for (int i = treeLevel; i < treeLevel + levelAmount; i++)
+                total += GetTreeLevelUpgradeCost(i);
+            return total;
+        }
+
+        private int GetTotalGenLevelUpgradeCost(int levelAmount)
+        {
+            int total = 0;
+            for (int i = generationLevel; i < generationLevel + levelAmount; i++)
+                total += GetGenLevelUpgradeCost(i);
+            return total;
+        }
+
+        private int GetTotalTapLevelUpgradeCost(int levelAmount)
+        {
+            int total = 0;
+            for (int i = tapLevel; i < tapLevel + levelAmount; i++)
+                total += GetTapLevelUpgradeCost(i);
+            return total;
+        }
 
         #endregion
 
@@ -190,9 +214,9 @@ namespace Plants
         {
             return new UpgradeDefinition[]
             {
-                new("Tree Level", GetTreeLevel, GetTreeLevelUpgradeCost,GetMaxTreeLevel, OnTreeLevelUpgrade),
-                new("Generation Level", GetGenerationLevel, GetGenLevelUpgradeCost,GetMaxGenerationLevel, OnGenLevelUpgrade),
-                new("Tap Level", GetTapLevel, GetTapLevelUpgradeCost,GetMaxTapLevel, OnTapLevelUpgrade),
+                new("Tree Level", GetTreeLevel, GetTotalTreeLevelUpgradeCost,GetMaxTreeLevel, OnTreeLevelUpgrade),
+                new("Generation Level", GetGenerationLevel, GetTotalGenLevelUpgradeCost,GetMaxGenerationLevel, OnGenLevelUpgrade),
+                new("Tap Level", GetTapLevel, GetTotalTapLevelUpgradeCost,GetMaxTapLevel, OnTapLevelUpgrade),
             };
         }
 
@@ -207,19 +231,19 @@ namespace Plants
             
         
 
-        private void OnTreeLevelUpgrade()
+        private void OnTreeLevelUpgrade(int amount)
         {
-            treeLevel++;
+            treeLevel += amount;
             OnPlantUpdated?.Invoke();
         } 
-        private void OnGenLevelUpgrade() 
+        private void OnGenLevelUpgrade(int amount) 
         {
-            generationLevel++;
+            generationLevel += amount;
             OnPlantUpdated?.Invoke();
         }
-        private void OnTapLevelUpgrade()
+        private void OnTapLevelUpgrade(int amount)
         {
-            tapLevel++;
+            tapLevel += amount;
             OnPlantUpdated?.Invoke();
         } 
 

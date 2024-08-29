@@ -21,6 +21,8 @@ namespace GridSystem
         private Tween selectTween;
         private IPlant currentPlant = null;
         private BiomeDatabase biomeDatabase;
+        private Outline[] plantOutlines;
+        
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
 
         public event Action OnTileUpdated;
@@ -30,6 +32,10 @@ namespace GridSystem
         public void SetHighlight(bool isHighlighted)
         {
             outline.enabled = isHighlighted;
+
+            if (plantOutlines == null) return;
+            foreach (var plantOutline in plantOutlines)
+                plantOutline.enabled = isHighlighted;
         }
 
         public void AnimatePop()
@@ -57,6 +63,9 @@ namespace GridSystem
         public void SetPlant(IPlant plant, bool invokeUpdate = true)
         {
             currentPlant = plant;
+
+            plantOutlines = plant.GameObject.GetComponentsInChildren<Outline>(true);
+            
             currentPlant.OnPlantUpdated += OnCurrentPlantUpdated;
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }
@@ -73,6 +82,7 @@ namespace GridSystem
             currentPlant.OnPlantUpdated -= OnCurrentPlantUpdated;
             Destroy(currentPlant.GameObject);
             currentPlant = null;
+            plantOutlines = Array.Empty<Outline>();
             
             if (invokeUpdate) OnTileUpdated?.Invoke();
         }

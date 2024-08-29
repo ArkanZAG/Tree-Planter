@@ -10,35 +10,21 @@ namespace UI.Upgrade
 {
     public class UpgradeUIElement : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI levelText;
-        [SerializeField] private TextMeshProUGUI priceText;
+        [SerializeField] private UpgradeButton first, second, third;
+
         [SerializeField] private TextMeshProUGUI titleText;
         [SerializeField] private AudioClip audioClipUpgrade;
 
-        [SerializeField] private Button button;
         
         private UpgradeDefinition upgradeDefinition;
         private GameController gameController;
         private SoundController soundController;
-
-        private void Awake()
-        {
-            button.onClick.AddListener(OnClick);
-        }
 
         public void Display(UpgradeDefinition upgrade, GameController game, SoundController soundCont)
         {
             upgradeDefinition = upgrade;
             gameController = game;
             soundController = soundCont;
-
-            var currentLevel = upgrade.getCurrentLevel.Invoke();
-            var maxLevel = upgrade.getMaxLevel.Invoke();
-
-
-            levelText.text = $"{currentLevel} / {maxLevel}";
-            priceText.text = upgrade.getCurrentCost.Invoke().ToString();
-            titleText.text = upgrade.title;
             
             UpdateStatus();
         }
@@ -48,27 +34,23 @@ namespace UI.Upgrade
             var currentLevel = upgradeDefinition.getCurrentLevel.Invoke();
             var maxLevel = upgradeDefinition.getMaxLevel.Invoke();
             
-            if (currentLevel >= maxLevel)
-            {
-                priceText.text = "MAX";
-                button.interactable = false;
-            }
+            titleText.text = $"{upgradeDefinition.title} Lv.{currentLevel}<size=60%> /{maxLevel}";
+
+            first.Display(gameController, upgradeDefinition, 1, currentLevel, maxLevel, OnLevelUp);
+            second.Display(gameController, upgradeDefinition, 10, currentLevel, maxLevel, OnLevelUp);
+            third.Display(gameController, upgradeDefinition, 50, currentLevel, maxLevel, OnLevelUp);
         }
 
-        private void OnClick()
+        private void OnLevelUp(int levelAmount)
         {
-            var cost = upgradeDefinition.getCurrentCost.Invoke();
+            var cost = upgradeDefinition.getCost.Invoke(levelAmount);
+
+            if (gameController.Oxygen < cost) return;
+            
+            soundController.PlaySfx(audioClipUpgrade);
+            upgradeDefinition.OnUpgraded?.Invoke(levelAmount);
+            gameController.AddOxygen(-cost);
             UpdateStatus();
-            
-            if (gameController.Oxygen >= cost)
-            {
-                soundController.PlaySfx(audioClipUpgrade);
-                upgradeDefinition.OnUpgraded?.Invoke();
-                Display(upgradeDefinition, gameController,soundController);
-                soundController.PlaySfx(audioClipUpgrade);
-                gameController.AddOxygen(-cost);
-            }
-            
         }
     }
 }
